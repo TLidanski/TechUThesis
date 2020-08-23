@@ -1,0 +1,26 @@
+{
+  "name": "thenetwork",
+  "version": "1.0.0",
+  "description": "Tech U Thesis",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TLidanski/TechUThesis.git"
+  },
+  "author": "Tihomir Lidanski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TLidanski/TechUThesis/issues"
+  },
+  "homepage": "https://github.com/TLidanski/TechUThesis#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.3.2"
+  },
+  "devDependencies": {}
+}
