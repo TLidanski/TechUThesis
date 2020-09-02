@@ -4,16 +4,16 @@ import {createConnection} from 'typeorm';
 
 import {UserController} from './controllers/user.controller';
 
-const app = new App({
-    port: 5000,
-    controllers: [
-        new UserController()
-    ],
-    middlewares: [
-        express.json()
-    ]
-});
-
 createConnection().then(connection => {
+    const app = new App({
+        port: 5000,
+        controllers: [
+            new UserController()
+        ],
+        middlewares: [
+            express.json()
+        ]
+    });
+    
     app.listen();
 });
