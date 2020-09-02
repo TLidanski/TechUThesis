@@ -17,7 +17,6 @@ export class UserController implements IControllerBase {
     }
 
     private createUser = async (req: Request, res: Response): Promise<Response> => {
-        console.log(req.body);
         const newUser = await getRepository(User).create(req.body);
         const results = await getRepository(User).save(newUser);
         

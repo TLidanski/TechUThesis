@@ -9,8 +9,8 @@ export class App {
         this.app = express();
         this.port = constructorObj.port;
 
-        this.setUpRoutes(constructorObj.controllers);
         this.setUpMiddlewares(constructorObj.middlewares);
+        this.setUpRoutes(constructorObj.controllers);
     }
 
     private setUpRoutes = (controllers: IControllerBase[]) => {
@@ -23,7 +23,6 @@ export class App {
     private setUpMiddlewares = (middlewares: any) => {
 
         for (const middleware of middlewares) {
-            console.log(middleware);
             this.app.use(middleware);
         }
     }
