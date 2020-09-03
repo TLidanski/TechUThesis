@@ -22,13 +22,13 @@ export class UserController implements IControllerBase {
     }
 
     private getById = async (req: Request, res: Response): Promise<Response> => {
-        const result = await this.repository.findOne(req.params.id);
-        return res.json(result);
+        const user = await this.repository.findOne(req.params.id);
+        return res.json(user);
     }
 
     private getByUsername = async (req: Request, res: Response): Promise<Response> => {
-        const result = await this.repository.findOne({username: req.params.username});
-        return res.json(result);
+        const user = await this.repository.findOne({username: req.params.username});
+        return res.json(user);
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
