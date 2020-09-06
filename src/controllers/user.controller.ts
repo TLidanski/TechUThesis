@@ -1,7 +1,7 @@
-import express, {Request, Response} from 'express';
-import {getRepository} from 'typeorm';
+import express, { Request, Response } from 'express';
+import { getRepository } from 'typeorm';
 
-import {User} from '../entity/User';
+import { User } from '../entity/User';
 import IControllerBase from '../interfaces/IControllerBase.interface';
 
 export class UserController implements IControllerBase {

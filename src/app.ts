@@ -1,4 +1,4 @@
-import express, {Application} from 'express';
+import express, { Application } from 'express';
 import IControllerBase from './interfaces/IControllerBase.interface';
 
 export class App {

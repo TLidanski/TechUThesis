@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Post } from './Post';
 
 export enum Gender {
@@ -26,7 +26,7 @@ export class User {
     lastName: string;
 
     @Column()
-    birthdate: Date;
+    birthday: Date;
 
     @Column({
         type: 'enum',

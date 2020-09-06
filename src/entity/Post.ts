@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn} from 'typeorm';
-import {User} from './User';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, OneToMany } from 'typeorm';
+import { User } from './User';
+import { Comment } from './Comment';
 
 @Entity()
 export class Post {
@@ -12,9 +13,15 @@ export class Post {
     @Column()
     mediaPath: string;
 
+    @Column()
+    likes: number;
+
     @CreateDateColumn()
     createdAt: Date;
 
     @ManyToOne(type => User, user => user.posts)
     user: User;
+
+    @OneToMany(type => Comment, comment => comment.post)
+    comments: Comment[];
 }
