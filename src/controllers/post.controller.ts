@@ -30,6 +30,7 @@ export class PostController implements IControllerBase {
         newPost.text = req.body.text;
         newPost.mediaPath = req.file.path;
         newPost.likes = req.body.likes;
+        newPost.user = req.body.user;
 
         const result = await this.repository.save(newPost);
         return res.json(result);
