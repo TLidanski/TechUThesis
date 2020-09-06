@@ -10,12 +10,13 @@ export class MediaService {
     constructor() {
         this.upload = multer({storage: multer.diskStorage({
             destination: (req: Request, file: Express.Multer.File, callback: Function) => {
-
-                fs.mkdir(this.staticMediaPath, {recursive: true}, err => {
+                const userMediaFolder = this.staticMediaPath + '/' + req.body.user;
+                
+                fs.mkdir(userMediaFolder, {recursive: true}, err => {
                     if (err) {
                         console.error(err.stack);
                     } else {
-                        callback(null, this.staticMediaPath);
+                        callback(null, userMediaFolder);
                     }
                 });
             },
@@ -28,7 +29,7 @@ export class MediaService {
     private generateFileName = (fileName: string) => {
         const extension = path.extname(fileName);
         const baseName = path.basename(fileName, extension);
-        
+
         return baseName + '-' + Date.now() + extension;
     }
 }
