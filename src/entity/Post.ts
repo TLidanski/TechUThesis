@@ -10,8 +10,8 @@ export class Post {
     @Column({type: 'text'})
     text: string;
 
-    @Column()
-    mediaPath: string;
+    @Column("simple-array")
+    mediaPaths: string[];
 
     @Column()
     likes: number;

@@ -32,6 +32,15 @@ export class MediaService {
         });
     }
 
+    public getFilePathsArray = (files: Express.Multer.File[]): string[] => {
+        const pathsArr: string[] = [];
+        for (const file of files) {     
+            pathsArr.push(file.path);
+        }
+
+        return pathsArr;
+    }
+
     private generateFileName = (fileName: string): string => {
         const extension = path.extname(fileName);
         const baseName = path.basename(fileName, extension);
