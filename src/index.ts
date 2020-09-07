@@ -13,7 +13,8 @@ createConnection().then(connection => {
             new PostController()
         ],
         middlewares: [
-            express.json()
+            express.json(),
+            express.static('static')
         ]
     });
     
