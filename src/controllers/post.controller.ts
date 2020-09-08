@@ -22,7 +22,7 @@ export class PostController implements IControllerBase {
     }
 
     private getById = async (req: Request, res: Response): Promise<Response> => {
-        const post = await this.repository.findOne(req.params.id);
+        const post = await this.repository.findOne(req.params.id, {relations: ['comments', 'comments.author']});
         return res.json(post);
     }
 
