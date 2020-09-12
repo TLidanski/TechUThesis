@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { Post } from './Post';
 
 export enum Gender {
@@ -16,7 +16,9 @@ export class User {
     })
     username: string;
 
-    @Column()
+    @Column({
+        unique: true
+    })
     email: string;
 
     @Column()
@@ -36,4 +38,11 @@ export class User {
 
     @OneToMany(type => Post, post => post.user)
     posts: Post[];
+
+    @ManyToMany(type => User, {
+        cascade: true,
+        onDelete: 'CASCADE'
+    })
+    @JoinTable()
+    friends: User[];
 }
