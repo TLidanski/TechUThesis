@@ -2,12 +2,14 @@ import express, { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 
 import { User } from '../entity/User';
+import { CryptoService } from '../services/crypto.service';
 import IControllerBase from '../interfaces/IControllerBase.interface';
 
 export class UserController implements IControllerBase {
     path: string = '/users';
     router = express.Router();
     private repository = getRepository(User);
+    private cryptoService = new CryptoService();
 
     constructor() {
         this.initRoutes();
@@ -36,9 +38,13 @@ export class UserController implements IControllerBase {
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
-        const newUser = this.repository.create(req.body);
-        const result = await this.repository.save(newUser);
+        const userData = {
+            ...req.body,
+            password: await this.cryptoService.hashPassword(req.body.password)
+        };
+        const newUser = this.repository.create(userData);
         
+        const result = await this.repository.save(newUser);   
         return res.json(result);
     }
 

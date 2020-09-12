@@ -5,8 +5,8 @@ import multer, { Multer } from 'multer';
 
 export class MediaService {
     upload: Multer;
-    staticMediaPath: string = 'static/media';
-    acceptedMimeTypes: string[] = ['image/png', 'image/jpeg', 'video/mp4'];
+    private staticMediaPath: string = 'static/media';
+    private acceptedMimeTypes: string[] = ['image/png', 'image/jpeg', 'video/mp4'];
 
     constructor() {
         this.upload = multer({

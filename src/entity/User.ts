@@ -21,6 +21,9 @@ export class User {
     })
     email: string;
 
+    @Column({nullable: true})
+    password: string;
+
     @Column()
     firstName: string;
 
@@ -29,6 +32,9 @@ export class User {
 
     @Column()
     birthday: Date;
+
+    @Column({nullable: true})
+    avatar: string;
 
     @Column({
         type: 'enum',

@@ -27,11 +27,11 @@ export class PostController implements IControllerBase {
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
-        const newPost = new Post();
-        newPost.text = req.body.text;
-        newPost.mediaPaths = this.mediaService.getFilePathsArray(Object.values(req.files));
-        newPost.likes = req.body.likes;
-        newPost.user = req.body.user;
+        const postData = {
+            ...req.body,
+            mediaPaths: this.mediaService.getFilePathsArray(Object.values(req.files))
+        }
+        const newPost = this.repository.create(postData);
 
         const result = await this.repository.save(newPost);
         return res.json(result);
