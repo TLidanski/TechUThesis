@@ -9,7 +9,7 @@ export class UserController implements IControllerBase {
     path: string = '/users';
     router = express.Router();
     private repository = getRepository(User);
-    private cryptoService = new CryptoService();
+    private CryptoService: CryptoService = new CryptoService();
 
     constructor() {
         this.initRoutes();
@@ -40,7 +40,7 @@ export class UserController implements IControllerBase {
     private create = async (req: Request, res: Response): Promise<Response> => {
         const userData = {
             ...req.body,
-            password: await this.cryptoService.hashPassword(req.body.password)
+            password: await this.CryptoService.hashPassword(req.body.password)
         };
         const newUser = this.repository.create(userData);
         

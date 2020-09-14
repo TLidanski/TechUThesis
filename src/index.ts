@@ -1,6 +1,12 @@
 import { App } from './app';
+
 import express from 'express'
-import { createConnection } from 'typeorm';
+import session from 'express-session';
+import passport from 'passport';
+
+import { createConnection, getRepository } from 'typeorm';
+import { TypeormStore } from 'typeorm-store';
+import { Session } from './entity/Session';
 
 import { UserController } from './controllers/user.controller';
 import { PostController } from './controllers/post.controller';
@@ -16,7 +22,15 @@ createConnection().then(connection => {
         ],
         middlewares: [
             express.json(),
-            express.static('static')
+            express.static('static'),
+            session({
+                resave: false,
+                saveUninitialized: false,
+                store: new TypeormStore({repository: getRepository(Session)}),
+                secret: 'Primetime'
+            }),
+            passport.initialize(),
+            passport.session()
         ]
     });
     

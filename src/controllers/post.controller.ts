@@ -10,7 +10,7 @@ export class PostController implements IControllerBase {
     router = express.Router();
     private maxMediaNumber: number = 12;
     private repository = getRepository(Post);
-    private mediaService: MediaService = new MediaService();
+    private MediaService: MediaService = new MediaService();
 
     constructor() {
         this.initRoutes();
@@ -18,7 +18,7 @@ export class PostController implements IControllerBase {
 
     public initRoutes = () => {
         this.router.get(this.path + '/:id', this.getById);
-        this.router.post(this.path, this.mediaService.upload.array('media', this.maxMediaNumber), this.create);
+        this.router.post(this.path, this.MediaService.upload.array('media', this.maxMediaNumber), this.create);
     }
 
     private getById = async (req: Request, res: Response): Promise<Response> => {
@@ -29,7 +29,7 @@ export class PostController implements IControllerBase {
     private create = async (req: Request, res: Response): Promise<Response> => {
         const postData = {
             ...req.body,
-            mediaPaths: this.mediaService.getFilePathsArray(Object.values(req.files))
+            mediaPaths: this.MediaService.getFilePathsArray(Object.values(req.files))
         }
         const newPost = this.repository.create(postData);
 

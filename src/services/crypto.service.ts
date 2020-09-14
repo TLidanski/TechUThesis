@@ -6,4 +6,8 @@ export class CryptoService {
     public hashPassword = async (password: string): Promise<string> => {
         return await bcrypt.hash(password, this.saltRounds);
     }
+
+    public comparePassword = async (password: string, hashedPassword: string): Promise<Boolean> => {
+        return await bcrypt.compare(password, hashedPassword);
+    }
 }
