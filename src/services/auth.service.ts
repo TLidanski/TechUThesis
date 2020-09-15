@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import passportLocal from 'passport-local';
 import { getRepository } from 'typeorm';
@@ -24,7 +25,8 @@ export class AuthService {
     }
 
     private initLocalStrategy = () => {
-        passport.use(new this.LocalStrategy(async (username: string, password: string, callback: Function): Promise<Function> => {
+        passport.use(new this.LocalStrategy({usernameField: 'username', passwordField: 'password'}, 
+        async (username: string, password: string, callback: Function): Promise<Function> => {
 
             const user = await this.userRepository.findOne({username});
             if (user) {
@@ -38,5 +40,21 @@ export class AuthService {
 
             return callback(null, false, {message: 'Incorrect username'});
         }));
+    }
+
+    public authenticateLocal = (req: Request, res: Response, next: NextFunction) => {
+        console.log(req.session);
+        passport.authenticate('local', (err, user, info) => {
+            if (err) {
+                return next(err);
+            }
+
+            if (user) {
+                req.logIn(user, () => console.log('User logged in'));
+                res.json({msg: 'Authenticated'});
+            } else {
+                res.json({success: false, msg: info});
+            }
+        })(req, res, next);
     }
 }

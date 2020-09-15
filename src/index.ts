@@ -11,11 +11,13 @@ import { Session } from './entity/Session';
 import { UserController } from './controllers/user.controller';
 import { PostController } from './controllers/post.controller';
 import { CommentController } from './controllers/comment.controller';
+import { AuthController } from './controllers/auth.controller';
 
 createConnection().then(connection => {
     const app = new App({
         port: 5000,
         controllers: [
+            new AuthController(),
             new UserController(),
             new PostController(),
             new CommentController()
@@ -25,7 +27,7 @@ createConnection().then(connection => {
             express.static('static'),
             session({
                 resave: false,
-                saveUninitialized: false,
+                saveUninitialized: true,
                 store: new TypeormStore({repository: getRepository(Session)}),
                 secret: 'Primetime'
             }),
