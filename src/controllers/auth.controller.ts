@@ -1,9 +1,7 @@
 import express, { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
 
 import { AuthService } from '../services/auth.service';
 import IControllerBase from '../interfaces/IControllerBase.interface';
-import { User } from '../entity/User';
 
 export class AuthController implements IControllerBase {
     path: string = '/';

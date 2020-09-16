@@ -21,7 +21,7 @@ export class User {
     })
     email: string;
 
-    @Column({nullable: true})
+    @Column()
     password: string;
 
     @Column()
@@ -33,7 +33,7 @@ export class User {
     @Column()
     birthday: Date;
 
-    @Column({nullable: true})
+    @Column({default: 'static/media/default-user.svg'})
     avatar: string;
 
     @Column({

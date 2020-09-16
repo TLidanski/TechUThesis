@@ -43,7 +43,6 @@ export class AuthService {
     }
 
     public authenticateLocal = (req: Request, res: Response, next: NextFunction) => {
-        console.log(req.session);
         passport.authenticate('local', (err, user, info) => {
             if (err) {
                 return next(err);
@@ -56,5 +55,13 @@ export class AuthService {
                 res.json({success: false, msg: info});
             }
         })(req, res, next);
+    }
+
+    public isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+        if (req.isAuthenticated()) {
+            next();
+        } else {
+            res.json({success: false, msg: 'Not authenticated'});
+        }
     }
 }
