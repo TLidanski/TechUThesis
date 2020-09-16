@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { Post } from './Post';
+import { Reaction } from './Reaction';
 
 export enum Gender {
     MALE = 'Male',
@@ -44,6 +45,9 @@ export class User {
 
     @OneToMany(type => Post, post => post.user)
     posts: Post[];
+
+    @OneToMany(type => Reaction, reaction => reaction.user)
+    reactions: Reaction[];
 
     @ManyToMany(type => User, {
         cascade: true,

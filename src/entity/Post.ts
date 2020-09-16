@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, OneToMany } from 'typeorm';
 import { User } from './User';
 import { Comment } from './Comment';
+import { Reaction } from './Reaction';
 
 @Entity()
 export class Post {
@@ -10,11 +11,8 @@ export class Post {
     @Column({type: 'text'})
     text: string;
 
-    @Column("simple-array")
+    @Column('simple-array')
     mediaPaths: string[];
-
-    @Column()
-    likes: number;
 
     @CreateDateColumn()
     createdAt: Date;
@@ -24,4 +22,7 @@ export class Post {
 
     @OneToMany(type => Comment, comment => comment.post)
     comments: Comment[];
+
+    @OneToMany(type => Reaction, reaction => reaction.post)
+    reactions: Reaction[];
 }
