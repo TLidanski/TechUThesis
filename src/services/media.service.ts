@@ -2,6 +2,9 @@ import express, { Request } from 'express';
 import fs from 'fs';
 import path from 'path';
 import multer, { Multer } from 'multer';
+import { getRepository } from 'typeorm';
+
+import { Media } from '../entity/Media';
 
 export class MediaService {
     upload: Multer;
@@ -32,13 +35,22 @@ export class MediaService {
         });
     }
 
-    public getFilePathsArray = (files: Express.Multer.File[]): string[] => {
-        const pathsArr: string[] = [];
-        for (const file of files) {     
-            pathsArr.push(file.path);
+    public savePostMedia = async (files: Express.Multer.File[]) => {
+        let mediaDataArr: Media[] = [];
+        const mediaRepository = getRepository(Media);
+        
+        for (const file of files) {
+            const fileObj: Record<string, string> = {
+                type: this.getMediaType(file),
+                path: file.path
+            }
+
+            const media = mediaRepository.create(fileObj);
+            const mediaResult = await mediaRepository.save(media);
+            mediaDataArr.push(mediaResult);
         }
 
-        return pathsArr;
+        return mediaDataArr;
     }
 
     private generateFileName = (fileName: string): string => {

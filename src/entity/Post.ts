@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, On
 import { User } from './User';
 import { Comment } from './Comment';
 import { Reaction } from './Reaction';
+import { Media } from './Media';
 
 @Entity()
 export class Post {
@@ -10,9 +11,6 @@ export class Post {
 
     @Column({type: 'text'})
     text: string;
-
-    @Column('simple-array')
-    mediaPaths: string[];
 
     @CreateDateColumn()
     createdAt: Date;
@@ -25,4 +23,7 @@ export class Post {
 
     @OneToMany(type => Reaction, reaction => reaction.post)
     reactions: Reaction[];
+
+    @OneToMany(type => Media, media => media.post)
+    media: Media[];
 }

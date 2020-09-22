@@ -22,18 +22,20 @@ export class PostController implements IControllerBase {
     }
 
     private getById = async (req: Request, res: Response): Promise<Response> => {
-        const post = await this.repository.findOne(req.params.id, {relations: ['comments', 'comments.author']});
+        const post = await this.repository.findOne(req.params.id, {relations: ['comments', 'comments.author', 'reactions', 'media']});
         return res.json(post);
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
+        const mediaFiles = await this.MediaService.savePostMedia(Object.values(req.files));
         const postData = {
             ...req.body,
-            mediaPaths: this.MediaService.getFilePathsArray(Object.values(req.files))
+            media: mediaFiles
         }
-        const newPost = this.repository.create(postData);
 
+        const newPost = this.repository.create(postData);
         const result = await this.repository.save(newPost);
+
         return res.json(result);
     }
 }
