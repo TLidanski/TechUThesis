@@ -35,10 +35,10 @@ export class MediaService {
         });
     }
 
-    public savePostMedia = async (files: Express.Multer.File[]) => {
+    public saveMedia = async (files: Express.Multer.File[]) => {
         let mediaDataArr: Media[] = [];
         const mediaRepository = getRepository(Media);
-        
+
         for (const file of files) {
             const fileObj: Record<string, string> = {
                 type: this.getMediaType(file),

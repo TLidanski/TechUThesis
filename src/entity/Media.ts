@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from 'typeorm';
 
 import { Post } from './Post';
+import { Album } from './Album';
 
 export enum MediaType {
     IMAGE = 'image',
@@ -26,4 +27,7 @@ export class Media {
 
     @ManyToOne(type => Post, post => post.media, {nullable: true})
     post: Post;
+
+    @ManyToMany(type => Album, album => album.media)
+    albums: Album[];
 }

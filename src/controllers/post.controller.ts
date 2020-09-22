@@ -27,10 +27,9 @@ export class PostController implements IControllerBase {
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
-        const mediaFiles = await this.MediaService.savePostMedia(Object.values(req.files));
         const postData = {
             ...req.body,
-            media: mediaFiles
+            media: await this.MediaService.saveMedia(Object.values(req.files))
         }
 
         const newPost = this.repository.create(postData);
