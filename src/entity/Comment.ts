@@ -10,8 +10,7 @@ export class Comment {
     @Column({type: 'text'})
     text: string;
 
-    @OneToOne(type => User)
-    @JoinColumn()
+    @ManyToOne(type => User, user => user.comments)
     author: User;
 
     @ManyToOne(type => Post, post => post.comments)
