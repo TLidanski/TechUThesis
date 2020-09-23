@@ -13,6 +13,7 @@ import { PostController } from './controllers/post.controller';
 import { CommentController } from './controllers/comment.controller';
 import { AuthController } from './controllers/auth.controller';
 import { AlbumController } from './controllers/album.controller';
+import { ReactionController } from './controllers/reaction.controller';
 
 createConnection().then(connection => {
     const app = new App({
@@ -22,7 +23,8 @@ createConnection().then(connection => {
             new UserController(),
             new PostController(),
             new CommentController(),
-            new AlbumController()
+            new AlbumController(),
+            new ReactionController()
         ],
         middlewares: [
             express.json(),

@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Post } from './Post';
 import { User } from './User';
+import { Comment } from "./Comment";
 
 export enum ReactionType {
     LIKE = 'LIKE',
@@ -25,6 +26,9 @@ export class Reaction {
     @ManyToOne(type => User, user => user.reactions)
     user: User;
 
-    @ManyToOne(type => Post, post => post.reactions)
+    @ManyToOne(type => Post, post => post.reactions, {nullable: true})
     post: Post;
+
+    @ManyToOne(type => Comment, comment => comment.reactions, {nullable: true})
+    comment: Comment;
 }
