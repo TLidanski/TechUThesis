@@ -16,6 +16,7 @@ export class AuthController implements IControllerBase {
         this.router.post(this.path + 'login', this.AuthService.authenticateLocal);
         this.router.post(this.path + 'logout', (req: Request, res: Response) => {
             req.logOut();
+            res.json({msg: 'Logged out'});
         });
     }
 }
