@@ -38,6 +38,13 @@ export class UserController implements IControllerBase {
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
+        if (await this.repository.findOne({email: req.body.email})) {
+            return res.json({success: false, msg: 'Email already exists'});
+        }
+
+        if (req.body.password != req.body.confirmPassword) {
+            return res.json({success: false, msg: 'Passwords do not match'});
+        }
         const userData = {
             ...req.body,
             password: await this.CryptoService.hashPassword(req.body.password)
