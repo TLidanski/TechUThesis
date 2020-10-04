@@ -38,7 +38,7 @@ export class UserController implements IControllerBase {
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
-        if (await this.repository.findOne({email: req.body.email})) {
+        if (await this.repository.find({email: req.body.email})) {
             return res.json({success: false, msg: 'Email already exists'});
         }
 

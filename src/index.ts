@@ -14,6 +14,7 @@ import { CommentController } from './controllers/comment.controller';
 import { AuthController } from './controllers/auth.controller';
 import { AlbumController } from './controllers/album.controller';
 import { ReactionController } from './controllers/reaction.controller';
+import { ChatController } from './controllers/chat.controller';
 
 createConnection().then(connection => {
     const app = new App({
@@ -24,7 +25,8 @@ createConnection().then(connection => {
             new PostController(),
             new CommentController(),
             new AlbumController(),
-            new ReactionController()
+            new ReactionController(),
+            new ChatController()
         ],
         middlewares: [
             express.json(),

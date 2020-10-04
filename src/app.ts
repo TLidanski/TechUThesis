@@ -1,13 +1,23 @@
 import express, { Application } from 'express';
+import * as server from 'http';
+import io from 'socket.io';
 import IControllerBase from './interfaces/IControllerBase.interface';
 
+import { ChatService } from './services/chat.service';
+
 export class App {
-    public app: Application;
-    public port: number;
+    private app: Application;
+    private port: number;
+    private server: server.Server;
+    private io: SocketIO.Server;
+    private ChatService: ChatService;
 
     constructor(constructorObj: {port: number, controllers: IControllerBase[], middlewares: any}) {
         this.app = express();
         this.port = constructorObj.port;
+        this.server = server.createServer(this.app);
+        this.io = io(this.server);
+        this.ChatService = new ChatService(this.io);
 
         this.setUpMiddlewares(constructorObj.middlewares);
         this.setUpRoutes(constructorObj.controllers);
@@ -28,6 +38,6 @@ export class App {
     }
 
     public listen = () => {
-        this.app.listen(this.port, () => console.log('Server running on port ' + this.port));
+        this.server.listen(this.port, () => console.log('Server running on port ' + this.port));
     }
 }
