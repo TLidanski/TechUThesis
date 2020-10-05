@@ -1,0 +1,7 @@
+node_modules
+!/static
+/static/*
+!/static/media/
+/static/media/*
+!/static/media/default-user.svg
+*.rest
