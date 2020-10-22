@@ -3,6 +3,7 @@ import { App } from './app';
 import express from 'express'
 import session from 'express-session';
 import passport from 'passport';
+import cors from 'cors';
 
 import { createConnection, getRepository } from 'typeorm';
 import { TypeormStore } from 'typeorm-store';
@@ -38,7 +39,8 @@ createConnection().then(connection => {
                 secret: 'Primetime'
             }),
             passport.initialize(),
-            passport.session()
+            passport.session(),
+            cors()
         ]
     });
     

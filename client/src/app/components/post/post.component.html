@@ -1,0 +1,16 @@
+<div class="post-container">
+    <div class="post-text">{{post.text}}</div>
+
+    <div class="post-media">
+        <img *ngFor="let media of post.media" src="{{'baseUrl' | env}}\{{media.path}}" alt="">
+    </div>
+
+    <div class="post-reacts"></div>
+    <div class="post-actions"></div>
+    <div class="post-comments">
+        <div *ngFor="let comment of post.comments" class="comment-container">
+            <a href="#">{{comment.author.firstName + ' ' + comment.author.lastName}}</a>
+            <p>{{comment.text}}</p>
+        </div>
+    </div>
+</div>

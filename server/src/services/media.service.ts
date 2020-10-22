@@ -42,7 +42,7 @@ export class MediaService {
         for (const file of files) {
             const fileObj: Record<string, string> = {
                 type: this.getMediaType(file),
-                path: file.path
+                path: file.path.replace('static\\', '')
             }
 
             const media = mediaRepository.create(fileObj);
