@@ -1,16 +1,36 @@
-<div class="post-container">
+<article class="post">
+    <header *ngIf="post.user" class="post-header">
+        <app-user-avatar [user]="post.user"></app-user-avatar>
+        <div class="post-author">
+            <h3>{{post.user | fullName}}</h3>
+            <span id="post-timestamp">{{post.createdAt | date:'fullDate'}} {{post.createdAt | date:'shortTime'}}</span>
+        </div>
+    </header>
+
     <div class="post-text">{{post.text}}</div>
 
-    <div class="post-media">
-        <img *ngFor="let media of post.media" src="{{'baseUrl' | env}}\{{media.path}}" alt="">
+    <app-post-media [media]="post.media"></app-post-media>
+
+    <div class="post-reacts">
+        <img src="{{'baseUrl' | env}}\{{'media\\haha.svg'}}" alt="">
+        <img src="{{'baseUrl' | env}}\{{'media\\like.svg'}}" alt="">
+        {{post.reactions?.length}}
+        {{post.comments?.length}} Comments
     </div>
 
-    <div class="post-reacts"></div>
-    <div class="post-actions"></div>
+    <div class="post-actions">
+        <button class="btn like-btn">Like</button>
+        <button class="btn share-btn">Share</button>
+    </div>
+
     <div class="post-comments">
+        <div class="comment-form-container">
+            <input type="text" name="comment" id="comment">
+        </div>
         <div *ngFor="let comment of post.comments" class="comment-container">
-            <a href="#">{{comment.author.firstName + ' ' + comment.author.lastName}}</a>
+            <app-user-avatar [user]="comment.author"></app-user-avatar>
+            <a href="#">{{comment.author | fullName}}</a>
             <p>{{comment.text}}</p>
         </div>
     </div>
-</div>
+</article>

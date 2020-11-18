@@ -12,4 +12,8 @@ export class PostService {
 	getPost = () => {
 		return this.http.get(`${environment.baseUrl}/posts/10`);
 	}
+
+	getPosts = () => {
+		return this.http.get(`${environment.baseUrl}/posts`);
+	}
 }

@@ -1,4 +1,42 @@
-.post-container {
-    margin: 5px 0;
-    box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.75);
+@import '../../scss/mixins.scss';
+
+.post {
+    margin: 15px 0;
+
+    @include tablet {
+        width: 100%;
+        box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.75);
+    }
+
+    @include desktop {
+        // width: 85%;
+    }
+
+    &-header {
+        display: flex;
+        padding: 5px 5px;
+    
+        h3 {
+            margin: 5px 0;
+        }
+    
+        .post-author {
+            margin: 0 10px;
+        }
+    
+        #post-timestamp {
+            font-size: 12px;
+            font-weight: bold;
+        }
+    }
+
+    &-text {
+        padding: 10px 15px;
+    }
+
+    &-reacts {
+        img {
+            width: 20px;
+        }
+    }
 }

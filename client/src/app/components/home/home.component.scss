@@ -1,0 +1,17 @@
+@import '../../scss/mixins.scss';
+
+section {
+    @include tablet {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+
+        .posts {
+            width: 70%;
+        }
+    }
+
+    @include desktop {
+        width: 65%;
+    }
+}

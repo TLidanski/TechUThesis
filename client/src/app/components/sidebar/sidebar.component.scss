@@ -1,0 +1,15 @@
+@import '../../scss/mixins.scss';
+
+.sidebar {
+    display: none;
+
+    @include tablet {
+        display: inline;
+        width: 30%;
+        position: fixed;
+        z-index: 1;
+        overflow-x: hidden;
+    }
+
+    @include desktop {}
+}

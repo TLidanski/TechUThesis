@@ -3,15 +3,20 @@
         <div class="navbar-header">
             <a href="#" class="navbar-brand">The Network</a>
         </div>
-        <div class="navbar-serachbox">
+        <div class="navbar-searchbox">
             <input type="text" name="search" id="search">
         </div>
         <div class="navbar-links">
-            <div id="navbar-user-profile">
-                <a href="#" class="navbar-link">Profile</a>
-            </div>
             <div id="navbar-home">
-                <a href="#" class="navbar-link">Home</a>
+                <a routerLink="/" routerLinkActive="active" class="navbar-link">
+                    <img src="{{'baseUrl' | env}}\media\home.svg" alt="">
+                </a>
+            </div>
+            <div id="navbar-user-profile">
+                <a href="#" class="navbar-link">
+                    <!-- TODO: USE USER AVATAR COMPONENT -->
+                    <img src="{{'baseUrl' | env}}\media\13\image\45fifpres.png" alt="" style="border-radius: 50%;"><span>Tihomir</span>
+                </a>
             </div>
         </div>
     </div>

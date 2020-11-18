@@ -1,13 +1,47 @@
-.navbar-content {
-    display: flex;
-    justify-content: space-around;
-}
+@import '../../scss/mixins.scss';
 
-.navbar-links {
-    display: flex;
-    justify-content: space-between;
-}
+.navbar {
+    &-brand {
+        font-size: 2em;
+        font-family: 'Dancing Script', cursive !important;
+    
+        color: black;
+        text-decoration: none;
+    }
 
-.navbar-link {
-    padding: 0 10px;
+    &-searchbox {
+        display: none;
+
+        @include tablet {
+            display: inline;
+            padding-top: 5px;
+        }
+    }
+
+    &-content {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &-links {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-link {
+        padding: 0 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 45px;
+        }
+
+        &.active {
+            img {
+                filter: brightness(0) saturate(100%) invert(0%) sepia(2%) saturate(0%) hue-rotate(174deg) brightness(100%) contrast(103%);
+            }
+        }
+    }
 }

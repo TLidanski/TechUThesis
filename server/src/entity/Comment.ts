@@ -17,6 +17,12 @@ export class Comment {
     @ManyToOne(type => Post, post => post.comments)
     post: Post;
 
+    @ManyToOne(type => Comment, comment => comment.replies)
+    parentComment: Comment;
+
     @OneToMany(type => Reaction, reaction => reaction.comment)
     reactions: Reaction[];
+
+    @OneToMany(type => Comment, comment => comment.parentComment)
+    replies: Comment[];
 }
