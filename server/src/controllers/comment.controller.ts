@@ -15,6 +15,8 @@ export class CommentController implements IControllerBase {
 
     public initRoutes = () => {
         this.router.post(this.path, this.create);
+        this.router.get(this.path + '/:postId', this.getByPostId);
+        this.router.get(this.path + '/replies/:commentId', this.getByCommentId);
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
@@ -22,5 +24,21 @@ export class CommentController implements IControllerBase {
         const result = await this.repository.save(newComment);
         
         return res.json(result);
+    }
+
+    private getByPostId = async (req: Request, res: Response): Promise<Response> => {
+        const comment = await this.repository.find({
+            relations: ['author', 'post', 'reactions', 'replies', 'reactions.user'],
+            where: {postId: req.params.postId}
+        });
+        return res.json(comment);
+    }
+
+    private getByCommentId = async (req: Request, res: Response): Promise<Response> => {
+        const comment = await this.repository.find({
+            relations: ['author', 'reactions', 'reactions.user'],
+            where: {parentCommentId: req.params.commentId}
+        });
+        return res.json(comment);
     }
 }

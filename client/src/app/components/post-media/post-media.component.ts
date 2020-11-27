@@ -24,6 +24,8 @@ export class PostMediaComponent implements OnInit {
 	private index: number = 0;
 	private swipeCoord?: [number, number];
 	private swipeTime?: number;
+	public showCarouselControls: boolean;
+
 	public swipeActions: Object = {
 		next: () => {
 			if (this.index < this.media.length - 1) {
@@ -44,6 +46,7 @@ export class PostMediaComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit(): void {
+		this.showCarouselControls = this.media.length > 1;
 	}
 
 	swipe = (e: TouchEvent, when: string): void => {

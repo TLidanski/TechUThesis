@@ -1,3 +1,7 @@
 .user-avatar {
     width: 80px;
 }
+
+:host-context(.comment-container) .user-avatar {
+    width: 50px;
+}

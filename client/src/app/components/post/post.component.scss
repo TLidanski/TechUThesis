@@ -39,4 +39,9 @@
             width: 20px;
         }
     }
+
+    &-comments {
+        max-height: 200px;
+        overflow-y: auto;
+    }
 }

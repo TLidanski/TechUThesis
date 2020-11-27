@@ -1,0 +1,45 @@
+@import '../../scss/mixins.scss';
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.comment-container {
+    padding: 5px;
+
+    .comment-text {
+        padding: 0 10px;
+        flex: 2;
+    
+        #comment-timestamp {
+            padding: 0 10px;
+            font-size: 12px;
+        }
+    }
+
+    .comment-actions {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .comment-action {
+        width: 15px;
+        padding: 5px 0;
+        cursor: pointer;
+    }
+
+    .comment-replies {
+        margin-left: 50px;
+    }
+}

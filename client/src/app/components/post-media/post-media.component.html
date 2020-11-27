@@ -1,13 +1,13 @@
 <div class="post-media" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
     <ng-container *ngFor="let mediaElement of media; index as i">
-        <img [class]="{media: true}" [@swipeInOut] *ngIf="mediaElement.type === 'image' && i === index" src="{{'baseUrl' | env}}\{{mediaElement.path}}" alt="">
-        <video [class]="{media: true}" [@swipeInOut] *ngIf="mediaElement.type === 'video' && i === index" src="{{'baseUrl' | env}}\{{mediaElement.path}}" controls></video>
+        <img class="media" [@swipeInOut] *ngIf="mediaElement.type === 'image' && i === index" src="{{'baseUrl' | env}}\{{mediaElement.path}}" alt="">
+        <video class="media" [@swipeInOut] *ngIf="mediaElement.type === 'video' && i === index" src="{{'baseUrl' | env}}\{{mediaElement.path}}" controls></video>
     </ng-container>
 
-    <div [class]="{dots: true}">
+    <div *ngIf="showCarouselControls" class="dots">
         <div *ngFor="let mediaElement of media; index as i" [class]="{dot: true, selected: i === index}"></div>
     </div>
 
-    <button [class]="{arrow: true, prev: true}" (click)="swipeActions['prev']()"><img src="{{'baseUrl' | env}}\{{'media\\arrow-left.svg'}}" alt="Prev"></button>
-    <button [class]="{arrow: true, next: true}" (click)="swipeActions['next']()"><img src="{{'baseUrl' | env}}\{{'media\\arrow-right.svg'}}" alt="Next"></button>
+    <button *ngIf="showCarouselControls" class="arrow prev" (click)="swipeActions['prev']()"><img src="{{'baseUrl' | env}}\{{'media\\arrow-left.svg'}}" alt="Prev"></button>
+    <button *ngIf="showCarouselControls" class="arrow next" (click)="swipeActions['next']()"><img src="{{'baseUrl' | env}}\{{'media\\arrow-right.svg'}}" alt="Next"></button>
 </div>

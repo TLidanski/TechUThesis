@@ -2,7 +2,75 @@ html *{
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+p {
+    word-break: break-all;
+}
+
 // IMAGES
 .img-circle {
     border-radius: 50%;
+}
+
+// INPUTS
+input {
+    width: 95%;
+    box-sizing: border-box;
+
+    &[type=text] {
+        padding: 5px;
+        font-size: 15px;
+        outline: none;
+        user-select: text;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+}
+
+// BUTTONS
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+
+    &-link {
+        background-color: transparent;
+        padding-left: 0;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:focus {
+            text-decoration: underline;
+            outline: none;
+        }
+    }
+}
+
+.flex {
+    display: flex;
 }

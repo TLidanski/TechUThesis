@@ -9,7 +9,7 @@ import { PostService } from '../../services/post.service';
 export class HomeComponent implements OnInit {
   posts: any[];
 
-  constructor(postService: PostService) { 
+  constructor(private postService: PostService) { 
     postService.getPosts().subscribe((posts: any) => {
 			this.posts = posts;
 		});

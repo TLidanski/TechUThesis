@@ -1,0 +1,19 @@
+@import '../../scss/mixins.scss';
+
+.comment-form {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    padding: 10px 0;
+
+    @include tablet {}
+
+    @include desktop {
+        justify-content: center;
+    }
+
+    input[type=text] {
+        width: 90%;
+        margin: 0 5px;
+    }
+}

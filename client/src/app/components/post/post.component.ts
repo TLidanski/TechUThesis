@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-post',
@@ -7,10 +7,16 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 	@Input() post: any;
+	isMobile: boolean = window.innerWidth < 600;
 
 	constructor() {
 	}
 
 	ngOnInit(): void {
+	}
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event) {
+		this.isMobile = event.target.innerWidth < 600;
 	}
 }

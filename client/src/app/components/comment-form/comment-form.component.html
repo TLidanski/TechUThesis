@@ -1,0 +1,5 @@
+<form class="comment-form" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <img src="{{'baseUrl' | env}}\media\13\image\45fifpres.png" alt="" style="border-radius: 50%; width: 35px; padding: 0 5px">
+    <!-- <app-user-avatar [user]=""></app-user-avatar> -->
+    <input type="text" formControlName="comment" placeholder="Write a comment..." name="comment">
+</form>

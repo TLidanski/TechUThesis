@@ -9,7 +9,7 @@
 
     <div class="post-text">{{post.text}}</div>
 
-    <app-post-media [media]="post.media"></app-post-media>
+    <app-post-media *ngIf="post.media.length" [media]="post.media"></app-post-media>
 
     <div class="post-reacts">
         <img src="{{'baseUrl' | env}}\{{'media\\haha.svg'}}" alt="">
@@ -23,14 +23,13 @@
         <button class="btn share-btn">Share</button>
     </div>
 
-    <div class="post-comments">
-        <div class="comment-form-container">
-            <input type="text" name="comment" id="comment">
-        </div>
-        <div *ngFor="let comment of post.comments" class="comment-container">
-            <app-user-avatar [user]="comment.author"></app-user-avatar>
-            <a href="#">{{comment.author | fullName}}</a>
-            <p>{{comment.text}}</p>
-        </div>
+    <app-comment-form [id]="post.id" [context]="'post'"></app-comment-form>
+
+    <div *ngIf="post.comments.length" class="post-comments">
+        <ng-container *ngFor="let comment of post.comments">
+            <app-comment *ngIf="!isMobile" [comment]="comment"></app-comment>
+        </ng-container>
+
+        <button class="btn btn-link" *ngIf="isMobile">See comments</button>
     </div>
 </article>
