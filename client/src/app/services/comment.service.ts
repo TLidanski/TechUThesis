@@ -12,4 +12,12 @@ export class CommentService {
   getCommentReplies = (commentId: string) => {
     return this.http.get(`${environment.baseUrl}/comments/replies/${commentId}`);
   }
+
+  postComment = (paramsObj: Object) => {
+    return this.http.post(`${environment.baseUrl}/comments`, paramsObj);
+  }
+
+  react = (paramsObj: Object) => {
+    return this.http.post(`${environment.baseUrl}/reactions`, paramsObj);
+  }
 }

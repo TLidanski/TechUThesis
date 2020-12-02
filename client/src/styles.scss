@@ -69,6 +69,34 @@ input {
             outline: none;
         }
     }
+
+    &-primary {
+        background-color: #ffc507;
+        border: 1px solid black;
+
+        &:hover {
+            background-color: #fcd03f;
+        }
+
+        &:focus {
+            text-decoration: none;
+            outline: none;
+            border: 2px solid black;
+        }
+    }
+
+    &-danger {
+        background-color: #b52633;
+        border: 1px solid black;
+
+        &:hover {
+            background-color: #db2334;
+        }
+
+        &:focus {
+            text-decoration: none;
+        }
+    }
 }
 
 .flex {

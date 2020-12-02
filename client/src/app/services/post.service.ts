@@ -9,11 +9,19 @@ export class PostService {
 
 	constructor(private http: HttpClient) { }
 	  
-	getPost = () => {
-		return this.http.get(`${environment.baseUrl}/posts/10`);
-	}
+	// getPost = () => {
+	// 	return this.http.get(`${environment.baseUrl}/posts/10`);
+	// }
 
 	getPosts = () => {
 		return this.http.get(`${environment.baseUrl}/posts`);
+	}
+
+	getComments = (postId: string) => {
+		return this.http.get(`${environment.baseUrl}/comments/${postId}`);
+	}
+
+	react = (paramsObj: Object) => {
+		return this.http.post(`${environment.baseUrl}/reactions`, paramsObj);
 	}
 }

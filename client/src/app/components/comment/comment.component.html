@@ -8,12 +8,15 @@
         </div>
         
         <div class="comment-actions">
-            <img id="like" class="comment-action" src="{{'baseUrl' | env}}\media\heart.svg" alt="">
-            <img (click)="reply()" id="reply" class="comment-action" src="{{'baseUrl' | env}}\media\message.svg" alt="">
+            <div id="like">
+                <img class="comment-action" src="{{'baseUrl' | env}}\media\heart.svg" alt="">
+                <app-reactions-tooltip [id]="comment.id" [context]="'comment'"></app-reactions-tooltip>
+            </div>
+            <img *ngIf="!comment.parentCommentId" (click)="reply()" id="reply" class="comment-action" src="{{'baseUrl' | env}}\media\message.svg" alt="">
         </div>
     </div>
 
-    <app-comment-form *ngIf="showReplyForm" [id]="comment.id" [context]="'comment'"></app-comment-form>
+    <app-comment-form *ngIf="showReplyForm" [id]="comment.id" [context]="'comment'" (newCommentEvent)="replyAdded()"></app-comment-form>
 
     <button class="btn btn-link" (click)="showReplies()" *ngIf="comment.replies?.length">{{!showSubComments ? 'See' : 'Hide'}} replies ({{comment.replies.length}})</button>
     

@@ -19,12 +19,21 @@ export class PostController implements IControllerBase {
     }
 
     public initRoutes = () => {
-        this.router.get(this.path + '/:id', this.AuthService.isAuthenticated, this.getById);
-        this.router.post(this.path, this.AuthService.isAuthenticated, this.MediaService.upload.array('media', this.maxMediaNumber), this.create);
+        this.router.get(this.path, this.get);
+        this.router.get(this.path + '/:id', /* this.AuthService.isAuthenticated, */ this.getById);
+        this.router.post(this.path, /* this.AuthService.isAuthenticated, */ this.MediaService.upload.array('media', this.maxMediaNumber), this.create);
+    }
+
+    private get = async (req: Request, res: Response): Promise<Response> => {
+        const posts = await this.repository.find({relations: ['user', 'comments', 'comments.author', 'comments.reactions', 'comments.replies', 'comments.replies.author', 'reactions', 'reactions.user', 'media']});
+        return res.json(posts);
     }
 
     private getById = async (req: Request, res: Response): Promise<Response> => {
-        const post = await this.repository.findOne(req.params.id, {relations: ['comments', 'comments.author', 'comments.reactions', 'reactions', 'reactions.user', 'media']});
+        const post = await this.repository.findOne(
+            req.params.id,
+            {relations: ['user', 'comments', 'comments.author', 'comments.reactions', 'comments.replies', 'reactions', 'reactions.user', 'media']}
+        );
         return res.json(post);
     }
 

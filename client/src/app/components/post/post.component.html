@@ -18,12 +18,19 @@
         {{post.comments?.length}} Comments
     </div>
 
-    <div class="post-actions">
-        <button class="btn like-btn">Like</button>
-        <button class="btn share-btn">Share</button>
+    <div class="post-actions flex">
+        <button (click)="like()" class="btn btn-primary like-btn">
+            <app-reactions-tooltip [id]="post.id" [context]="'post'"></app-reactions-tooltip>
+            <img src="{{'baseUrl' | env}}\media\heart.svg" alt="">
+            Like
+        </button>
+        <button class="btn btn-primary share-btn">
+            <img src="{{'baseUrl' | env}}\media\share.svg" alt="">
+            Share
+        </button>
     </div>
 
-    <app-comment-form [id]="post.id" [context]="'post'"></app-comment-form>
+    <app-comment-form [id]="post.id" [context]="'post'" (newCommentEvent)="commentAdded()"></app-comment-form>
 
     <div *ngIf="post.comments.length" class="post-comments">
         <ng-container *ngFor="let comment of post.comments">

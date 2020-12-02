@@ -26,8 +26,14 @@ export class Reaction {
     @ManyToOne(type => User, user => user.reactions)
     user: User;
 
+    @Column({ nullable: true })
+    postId: number;
+
     @ManyToOne(type => Post, post => post.reactions, {nullable: true})
     post: Post;
+
+    @Column({ nullable: true })
+    commentId: number;
 
     @ManyToOne(type => Comment, comment => comment.reactions, {nullable: true})
     comment: Comment;

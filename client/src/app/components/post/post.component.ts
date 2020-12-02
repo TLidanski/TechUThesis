@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -9,14 +10,32 @@ export class PostComponent implements OnInit {
 	@Input() post: any;
 	isMobile: boolean = window.innerWidth < 600;
 
-	constructor() {
+	constructor(private postService: PostService) {
 	}
 
 	ngOnInit(): void {
 	}
 
+	commentAdded = () => {
+		this.postService.getComments(this.post.id).subscribe(comments => {
+			this.post.comments = comments;
+		});
+	}
+
+	like = () => {
+		const params = {
+			reaction: 'LIKE',
+			user: 13,
+			postId: this.post.id
+		};
+
+		this.postService.react(params).subscribe(response => {
+			console.log(response);
+		});
+	}
+
 	@HostListener('window:resize', ['$event'])
-	onResize(event) {
+	onResize = (event) => {
 		this.isMobile = event.target.innerWidth < 600;
 	}
 }

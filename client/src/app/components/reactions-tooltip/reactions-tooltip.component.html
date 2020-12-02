@@ -1,0 +1,6 @@
+<div class="reactions-tooltip flex">
+    <div *ngFor="let reaction of reactions" class="reaction">
+        <img (click)="react($event)" id="{{reaction.displayValue | uppercase}}" src="{{'baseUrl' | env}}\media\{{reaction.file}}" alt="{{reaction.displayValue}}">
+        <span>{{reaction.displayValue}}</span>
+    </div>
+</div>

@@ -18,6 +18,10 @@
 .comment-container {
     padding: 5px;
 
+    #like {
+        position: relative;
+    }
+
     .comment-text {
         padding: 0 10px;
         flex: 2;

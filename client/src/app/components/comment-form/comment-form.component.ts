@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommentService } from '../../services/comment.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -9,17 +10,28 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class CommentFormComponent implements OnInit {
   @Input() id: string;
   @Input() context: 'post' | 'comment' = 'post';
+  @Output() newCommentEvent = new EventEmitter<any>();
+
   commentForm: FormGroup = new FormGroup({
     comment: new FormControl('', Validators.required)
   });
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    //  TODO: Make a Post request to the comment API
-    console.log(this.commentForm.value);
+    const key = this.context === 'post' ? 'postId' : 'parentCommentId';
+    const paramsObj: Object = {
+      text: this.commentForm.value.comment,
+      author: 13, // TODO: Don't use hardcoded value
+      [key]: this.id
+    };
+
+    this.commentService.postComment(paramsObj).subscribe(() => {
+      this.newCommentEvent.emit();
+    });
+    this.commentForm.reset();
   }
 }
