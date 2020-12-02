@@ -24,4 +24,8 @@ export class PostService {
 	react = (paramsObj: Object) => {
 		return this.http.post(`${environment.baseUrl}/reactions`, paramsObj);
 	}
+
+	getReactions = (postId: string) => {
+		return this.http.get(`${environment.baseUrl}/reactions/${postId}`);
+	}
 }

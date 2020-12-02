@@ -1,0 +1,21 @@
+<div class="reaction-data flex">
+    <div *ngFor="let reaction of reacts | keyvalue" class="reaction">
+        <img src="{{'baseUrl' | env}}\media\{{reaction.value.file}}" alt="{{reaction.value.displayValue}}">
+        
+        <div class="reaction-data-tooltip">
+            <h4>{{reaction.value.displayValue}}</h4>
+            <span *ngFor="let user of reaction.value.users">
+                {{user}}
+            </span>
+        </div>
+    </div>
+
+    <div id="likes-length">
+        {{reactions?.length}} {{reactions?.length === 1 ? 'Like' : 'Likes'}}
+        <div class="length-tooltip">
+            <span *ngFor="let reaction of reactions">
+                {{reaction.user | fullName}}<br>
+            </span>
+        </div>
+    </div>
+</div>

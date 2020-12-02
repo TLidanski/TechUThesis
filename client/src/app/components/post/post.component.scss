@@ -71,8 +71,10 @@
     }
 
     &-reacts {
-        img {
-            width: 20px;
+        padding: 10px;
+
+        .reacts {
+            flex: 2;
         }
     }
 

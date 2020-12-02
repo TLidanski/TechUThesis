@@ -1,0 +1,55 @@
+.reaction-data {
+    img {
+        padding-right: 5px;
+        width: 20px;
+    }
+
+    #likes-length {
+        position: relative;
+
+        &:hover .length-tooltip {
+            visibility: visible;
+        }
+    }
+
+    .reaction {
+        position: relative;
+
+        &:hover .reaction-data-tooltip {
+            visibility: visible;
+        }
+    }
+
+    &-tooltip,
+    .length-tooltip {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+
+        position: absolute;
+        z-index: 1;
+
+        bottom: 120%;
+        left: 50%;
+        margin-left: -63px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black transparent transparent transparent;
+        }
+
+        h4 {
+            margin-top: 0;
+        }
+    }
+}
