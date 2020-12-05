@@ -33,23 +33,48 @@
         position: absolute;
         z-index: 1;
 
-        bottom: 120%;
         left: 50%;
-        margin-left: -63px;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: black transparent transparent transparent;
-        }
 
         h4 {
             margin-top: 0;
+        }
+    }
+
+    :host-context(.post-reacts) .reaction-data {
+        &-tooltip,
+        .length-tooltip {
+            bottom: 120%;
+            margin-left: -63px;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: black transparent transparent transparent;
+            }
+        }
+    }
+
+    :host-context(.comment-container) .reaction-data {
+        &-tooltip {
+            top: -5px;
+            left: 105%;
+
+            &::after {
+                content: '';
+            }
+
+            h4 {
+                margin: 0;
+            }
+        }
+
+        #likes-length {
+            display: none;
         }
     }
 }

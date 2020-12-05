@@ -12,9 +12,13 @@ export class CommentComponent implements OnInit {
 	showSubComments: boolean = false;
 	showReplyForm: boolean = false;
 
-	constructor(private commentService: CommentService) { }
+	constructor(private commentService: CommentService) {
+	}
 
 	ngOnInit(): void {
+		this.commentService.getReacts(this.comment.id).subscribe(reacts => {
+			this.comment.reactions = reacts;
+		});
 	}
 
 	showReplies = () => {
@@ -22,11 +26,9 @@ export class CommentComponent implements OnInit {
 	}
 
 	getReplies = () => {
-		return new Promise((resolve, reject) => {
-			this.commentService.getCommentReplies(this.comment.id).subscribe((replies: any) => {
-				this.comment.replies = replies;
-				resolve();
-			});
+		this.commentService.getCommentReplies(this.comment.id).subscribe((replies: any) => {
+			this.comment.replies = replies;
+			this.showSubComments = true;
 		});
 	}
 
@@ -35,8 +37,6 @@ export class CommentComponent implements OnInit {
 	}
 
 	replyAdded = () => {
-		this.getReplies().then(() => {
-			this.showSubComments = true;
-		});
+		this.getReplies();
 	}
 }

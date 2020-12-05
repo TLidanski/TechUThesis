@@ -25,7 +25,9 @@ export class PostController implements IControllerBase {
     }
 
     private get = async (req: Request, res: Response): Promise<Response> => {
-        const posts = await this.repository.find({relations: ['user', 'comments', 'comments.author', 'comments.reactions', 'comments.replies', 'comments.replies.author', 'reactions', 'reactions.user', 'media']});
+        const posts = await this.repository.find({relations: [
+            'user', 'comments', 'comments.author', 'comments.reactions', 'comments.reactions.user', 'comments.replies', 'comments.replies.author', 'comments.replies.reactions', 'comments.replies.reactions.user', 'reactions', 'reactions.user', 'media'
+        ]});
         return res.json(posts);
     }
 

@@ -4,9 +4,9 @@
         
         <div class="reaction-data-tooltip">
             <h4>{{reaction.value.displayValue}}</h4>
-            <span *ngFor="let user of reaction.value.users">
+            <div *ngFor="let user of reaction.value.users">
                 {{user}}
-            </span>
+            </div>
         </div>
     </div>
 
