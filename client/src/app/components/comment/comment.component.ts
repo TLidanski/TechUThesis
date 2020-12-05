@@ -39,4 +39,10 @@ export class CommentComponent implements OnInit {
 	replyAdded = () => {
 		this.getReplies();
 	}
+
+	reactionAdded = () => {
+		this.commentService.getReacts(this.comment.id).subscribe(reactions => {
+			this.comment.reactions = reactions;
+		});
+	}
 }

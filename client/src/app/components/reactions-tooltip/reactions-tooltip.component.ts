@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { CommentService } from 'src/app/services/comment.service';
 
@@ -10,6 +10,8 @@ import { CommentService } from 'src/app/services/comment.service';
 export class ReactionsTooltipComponent implements OnInit {
 	@Input() id: string;
 	@Input() context: 'post' | 'comment' = 'post';
+	@Output() newReactionEvent = new EventEmitter<any>();
+
 	activeService;
 	reactions = [
 		{
@@ -58,8 +60,8 @@ export class ReactionsTooltipComponent implements OnInit {
 			[key]: this.id
 		};
 
-		this.activeService[this.context].react(params).subscribe(response => {
-			console.log(response);
+		this.activeService[this.context].react(params).subscribe(() => {
+			this.newReactionEvent.emit();
 		});
 	}
 }

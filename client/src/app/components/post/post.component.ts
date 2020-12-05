@@ -34,6 +34,12 @@ export class PostComponent implements OnInit {
 		});
 	}
 
+	reactionAdded = () => {
+		this.postService.getReactions(this.post.id).subscribe(reactions => {
+			this.post.reactions = reactions;
+		});
+	}
+
 	@HostListener('window:resize', ['$event'])
 	onResize = (event) => {
 		this.isMobile = event.target.innerWidth < 600;

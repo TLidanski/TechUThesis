@@ -11,7 +11,7 @@
         <div class="comment-actions">
             <div id="like">
                 <img class="comment-action" src="{{'baseUrl' | env}}\media\heart.svg" alt="">
-                <app-reactions-tooltip [id]="comment.id" [context]="'comment'"></app-reactions-tooltip>
+                <app-reactions-tooltip [id]="comment.id" [context]="'comment'" (newReactionEvent)="reactionAdded()"></app-reactions-tooltip>
             </div>
             <img *ngIf="!comment.parentCommentId" (click)="reply()" id="reply" class="comment-action" src="{{'baseUrl' | env}}\media\message.svg" alt="">
         </div>

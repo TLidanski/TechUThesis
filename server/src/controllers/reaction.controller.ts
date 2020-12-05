@@ -28,6 +28,7 @@ export class ReactionController implements IControllerBase {
 
     private getPostReactions = async (req: Request, res: Response): Promise<Response> => {
         const reactions = await this.repository.find({
+            relations: ['user'],
             where: {postId: req.params.id}
         });
 

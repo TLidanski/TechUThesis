@@ -24,8 +24,8 @@
     </div>
 
     <div class="post-actions flex">
-        <button (click)="like()" class="btn btn-primary like-btn">
-            <app-reactions-tooltip [id]="post.id" [context]="'post'"></app-reactions-tooltip>
+        <button class="btn btn-primary like-btn">
+            <app-reactions-tooltip [id]="post.id" [context]="'post'" (newReactionEvent)="reactionAdded()"></app-reactions-tooltip>
             <img src="{{'baseUrl' | env}}\media\heart.svg" alt="">
             Like
         </button>

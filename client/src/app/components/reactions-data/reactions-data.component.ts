@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
 	selector: 'app-reactions-data',
 	templateUrl: './reactions-data.component.html',
 	styleUrls: ['./reactions-data.component.scss']
 })
-export class ReactionsDataComponent implements OnInit {
+export class ReactionsDataComponent implements OnInit, OnChanges {
 	@Input() reactions: any[];
 	reacts: any[];
 
@@ -14,7 +14,15 @@ export class ReactionsDataComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		for (const react of this.reactions) {
+		this.initReacts(this.reactions);
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		this.initReacts(this.reactions);
+	}
+
+	initReacts = (reactions: any[]) => {
+		for (const react of reactions) {
 			if (!(react.reaction in this.reacts)) {
 				
 				this.reacts[react.reaction] = {
@@ -26,5 +34,4 @@ export class ReactionsDataComponent implements OnInit {
 			this.reacts[react.reaction].users.push(react.user.firstName + ' ' + react.user.lastName);
 		}
 	}
-
 }
