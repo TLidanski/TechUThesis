@@ -19,7 +19,10 @@ export class ReactionsDataComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (!changes.reactions.firstChange) {
-			this.initReacts(this.reactions);
+			
+			if (changes.reactions.previousValue.length !== changes.reactions.currentValue.length) {
+				this.initReacts(this.reactions);
+			}
 		}
 	}
 
