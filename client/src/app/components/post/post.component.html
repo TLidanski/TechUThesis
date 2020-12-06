@@ -42,6 +42,7 @@
             <app-comment *ngIf="!isMobile" [comment]="comment"></app-comment>
         </ng-container>
 
-        <button class="btn btn-link" *ngIf="isMobile">See comments</button>
+        <button (click)="toggleCommentsModal()" class="btn btn-link" *ngIf="isMobile">See comments</button>
+        <app-comments-modal [show]="showCommentsModal" [post]="post" (toggleModalEvent)="toggleCommentsModal()"></app-comments-modal>
     </div>
 </article>

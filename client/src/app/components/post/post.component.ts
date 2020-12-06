@@ -9,6 +9,7 @@ import { PostService } from '../../services/post.service';
 export class PostComponent implements OnInit {
 	@Input() post: any;
 	isMobile: boolean = window.innerWidth < 600;
+	showCommentsModal = false;
 
 	constructor(private postService: PostService) {
 	}
@@ -38,6 +39,10 @@ export class PostComponent implements OnInit {
 		this.postService.getReactions(this.post.id).subscribe(reactions => {
 			this.post.reactions = reactions;
 		});
+	}
+
+	toggleCommentsModal = () => {
+		this.showCommentsModal = !this.showCommentsModal;
 	}
 
 	@HostListener('window:resize', ['$event'])

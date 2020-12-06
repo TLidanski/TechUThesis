@@ -1,0 +1,20 @@
+<div [ngClass]="{'comments-modal': true, 'show': show}">
+    <div class="comments-modal-content">
+        <div class="comments-modal-header flex">
+            <button (click)="toggleModal()" class="close">
+                <img src="{{'baseUrl' | env}}\{{'media\\arrow-left.svg'}}" alt="Close">
+            </button>
+            <app-reactions-data [reactions]="post.reactions"></app-reactions-data>
+        </div>
+
+        <div class="comments-modal-body">
+            <ng-container *ngFor="let comment of post.comments">
+                <app-comment [comment]="comment"></app-comment>
+            </ng-container>
+        </div>
+
+        <div class="comments-modal-footer">
+            <app-comment-form [id]="post.id" [context]="'post'" (newCommentEvent)="commentAdded()"></app-comment-form>
+        </div>
+    </div>
+</div>

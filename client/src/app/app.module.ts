@@ -19,6 +19,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { CommentFormComponent } from './components/comment-form/comment-form.component';
 import { ReactionsTooltipComponent } from './components/reactions-tooltip/reactions-tooltip.component';
 import { ReactionsDataComponent } from './components/reactions-data/reactions-data.component';
+import { CommentsModalComponent } from './components/comments-modal/comments-modal.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent}
@@ -38,7 +39,8 @@ const routes: Routes = [
     CommentComponent,
     CommentFormComponent,
     ReactionsTooltipComponent,
-    ReactionsDataComponent
+    ReactionsDataComponent,
+    CommentsModalComponent
   ],
   imports: [
     BrowserModule,

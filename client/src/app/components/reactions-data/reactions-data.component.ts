@@ -18,7 +18,9 @@ export class ReactionsDataComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.initReacts(this.reactions);
+		if (!changes.reactions.firstChange) {
+			this.initReacts(this.reactions);
+		}
 	}
 
 	initReacts = (reactions: any[]) => {
