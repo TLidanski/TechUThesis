@@ -1,0 +1,12 @@
+<div class="flex">
+    <div>
+        <label for="{{element}}" class="btn btn-primary file-upload">
+            <img src="{{'baseUrl' | env}}\media\upload.svg" alt="">
+            {{text}}
+        </label>
+    </div>
+    
+    <div>
+        <img *ngFor="let image of images" src="{{image}}" alt="Img" class="upload-preview-img">
+    </div>
+</div>

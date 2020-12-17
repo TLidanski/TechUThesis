@@ -1,0 +1,90 @@
+<div class="auth">
+    <div class="auth-header">
+        <div class="tabs flex">
+            <button [ngClass]="{'btn': true, 'btn-tab': true, 'active': activeForm}" (click)="setActiveForm(true)">Login</button>
+            <button [ngClass]="{'btn': true, 'btn-tab': true, 'active': !activeForm}" (click)="setActiveForm(false)">Register</button>
+        </div>
+        <h1>The Network</h1>
+    </div>
+
+    <form *ngIf="activeForm" class="auth-login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="flex">
+            <label for="username">Username</label>
+        </div>
+        <input type="text" formControlName="username" placeholder="Username" name="username">
+
+        <div class="flex">
+            <label for="password">Password</label>
+        </div>
+        <input type="password" formControlName="password" placeholder="Password" name="password">
+
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+    </form>
+
+    <form *ngIf="!activeForm" class="auth-register-form" [formGroup]="registerForm" (ngSubmit)="register()" enctype="multipart/form-data">
+        <div class="flex">
+            <label for="username">Username</label>
+        </div>
+        <input type="text" formControlName="username" placeholder="Username" name="username">
+
+        <div class="flex">
+            <label for="email">Email</label>
+        </div>
+        <input type="text" formControlName="email" placeholder="Email" name="email">
+
+        <div class="flex">
+            <label for="password">Password</label>
+        </div>
+        <div class="flex">
+            <input type="password" formControlName="password" placeholder="Password" name="password" id="password">
+
+            <input type="password" formControlName="confirmPassword" placeholder="Confirm password" name="confirmPassword" id="confirmPassword">
+        </div>
+
+        <div class="flex">
+            <label for="firstName">Name</label>
+        </div>
+        <div class="flex">
+            <input type="text" formControlName="firstName" placeholder="First name" name="firstName" id="firstName">
+            <input type="text" formControlName="lastName" placeholder="Last name" name="lastName" id="lastName">
+        </div>
+
+        <div class="flex">
+            <label for="birthday">Birthday</label>
+        </div>
+        <div class="flex">
+            <input type="text" formControlName="day" name="day" id="day" placeholder="Day">
+            <select formControlName="month" name="month" id="month">
+                <option value="0">Jan</option>
+                <option value="1">Feb</option>
+                <option value="2">Mar</option>
+                <option value="3">Apr</option>
+                <option value="4">May</option>
+                <option value="5">Jun</option>
+                <option value="6">Jul</option>
+                <option value="7">Aug</option>
+                <option value="8">Sep</option>
+                <option value="9">Oct</option>
+                <option value="10">Nov</option>
+                <option value="11">Dec</option>
+            </select>
+            <input type="text" formControlName="year" name="year" id="year" placeholder="Year">
+        </div>
+
+        <div class="flex">
+            <label for="gender">Gender</label>
+        </div>
+        <select formControlName="gender" name="gender">
+            <option value="Male" selected>Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <div class="flex">
+            <app-file-input [element]="'avatar'" [text]="'Choose your profile picture'" [images]="imagesForPreview"></app-file-input>
+        </div>
+        <input type="file" formControlName="avatar" name="avatar" id="avatar" (change)="onImageSelect($event)">
+
+        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
+    </form>
+
+</div>

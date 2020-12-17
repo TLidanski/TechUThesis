@@ -20,9 +20,14 @@ import { CommentFormComponent } from './components/comment-form/comment-form.com
 import { ReactionsTooltipComponent } from './components/reactions-tooltip/reactions-tooltip.component';
 import { ReactionsDataComponent } from './components/reactions-data/reactions-data.component';
 import { CommentsModalComponent } from './components/comments-modal/comments-modal.component';
+import { AuthComponent } from './components/auth/auth.component';
+
+import { AuthGuard } from '../app/auth/auth.guard';
+import { FileInputComponent } from './components/file-input/file-input.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent}
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: AuthComponent}
 ];
 
 @NgModule({
@@ -40,7 +45,9 @@ const routes: Routes = [
     CommentFormComponent,
     ReactionsTooltipComponent,
     ReactionsDataComponent,
-    CommentsModalComponent
+    CommentsModalComponent,
+    AuthComponent,
+    FileInputComponent
   ],
   imports: [
     BrowserModule,

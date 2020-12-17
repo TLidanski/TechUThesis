@@ -1,0 +1,72 @@
+@import "../../scss/mixins.scss";
+
+.auth {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+
+    @include tablet {
+        width: 70%;
+        box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.75);
+    }
+
+    @include desktop {
+        width: 30%;
+    }
+
+    &-header {
+        h1 {
+            font-size: 3em;
+            font-family: 'Dancing Script', cursive !important;
+            margin-bottom: 0px;
+        
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    &-login-form {
+        @include tablet {
+            min-height: 350px;
+        }
+    }
+
+    &-register-form {
+        @include tablet {
+            height: 600px;
+        }
+
+        #password, #firstName, #day {
+            margin-right: 5px;
+        }
+
+        #confirmPassword, #lastName, #year {
+            margin-left: 5px;
+        }
+    }
+
+    .flex {
+        margin: 0 auto;
+        width: 95%;
+
+        label {
+            padding-bottom: 5px;
+        }
+    }
+
+    input {
+        &[type=text],
+        &[type=password] {
+            margin-bottom: 15px;
+        }
+    }
+
+    button {
+        &[type=submit] {
+            display: block;
+            margin: 15px auto 20px;
+            width: 95%;
+        }
+    }
+}

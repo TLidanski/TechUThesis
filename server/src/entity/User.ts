@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTabl
 import { Post } from './Post';
 import { Reaction } from './Reaction';
 import { Comment } from './Comment';
+import { Album } from './Album';
 
 export enum Gender {
     MALE = 'Male',
@@ -35,7 +36,7 @@ export class User {
     @Column()
     birthday: Date;
 
-    @Column({default: 'static/media/default-user.svg'})
+    @Column({default: '/media/default-user.svg'})
     avatar: string;
 
     @Column({
@@ -52,6 +53,9 @@ export class User {
 
     @OneToMany(type => Comment, comment => comment.author)
     comments: Comment[];
+
+    @OneToMany(type => Album, album => album.user)
+    albums: Album[];
 
     @ManyToMany(type => User, {
         cascade: true,

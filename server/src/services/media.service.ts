@@ -5,6 +5,8 @@ import multer, { Multer } from 'multer';
 import { getRepository } from 'typeorm';
 
 import { Media } from '../entity/Media';
+import { Album } from '../entity/Album';
+import { User } from '../entity/User';
 
 export class MediaService {
     upload: Multer;
@@ -51,6 +53,21 @@ export class MediaService {
         }
 
         return mediaDataArr;
+    }
+
+    public saveProfilePicture = async (file: Express.Multer.File, user: User) => {
+        const albumRepo = getRepository(Album);
+        const fileRecordArr = await this.saveMedia([file]);
+
+        const profilePicAlbumData = {
+            name: 'Profile Pictures',
+            user: user,
+            media: fileRecordArr
+        };
+        const profilePicAlbum = albumRepo.create(profilePicAlbumData);
+        await albumRepo.save(profilePicAlbum);
+
+        return fileRecordArr[0];
     }
 
     private generateFileName = (fileName: string): string => {

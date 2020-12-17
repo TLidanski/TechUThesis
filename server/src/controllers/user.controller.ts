@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 
 import { User } from '../entity/User';
 import { CryptoService } from '../services/crypto.service';
+import { MediaService } from '../services/media.service';
 import IControllerBase from '../interfaces/IControllerBase.interface';
 
 export class UserController implements IControllerBase {
@@ -10,6 +11,7 @@ export class UserController implements IControllerBase {
     router = express.Router();
     private repository = getRepository(User);
     private CryptoService: CryptoService = new CryptoService();
+    private MediaService: MediaService = new MediaService();
 
     constructor() {
         this.initRoutes();
@@ -21,6 +23,8 @@ export class UserController implements IControllerBase {
         this.router.post(this.path, this.create);
         this.router.put(this.path + '/:id', this.edit);
         this.router.delete(this.path + '/:id', this.delete);
+
+        this.router.post(this.path + '/avatar', this.MediaService.upload.single('avatar'), this.setAvatar);
 
         this.router.get(this.path + '/friends/:id', this.getFriends);
         this.router.post(this.path + '/friends/:id', this.addFriend);
@@ -38,19 +42,26 @@ export class UserController implements IControllerBase {
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
-        if (await this.repository.find({email: req.body.email})) {
+        const userWithEmail = await this.repository.findOne({email: req.body.email});
+        if (userWithEmail) {
             return res.json({success: false, msg: 'Email already exists'});
         }
 
         if (req.body.password != req.body.confirmPassword) {
             return res.json({success: false, msg: 'Passwords do not match'});
         }
+
+        const userWithUsername = await this.repository.findOne({username: req.body.username});
+        if (userWithUsername) {
+            return res.json({success: false, msg: 'Username already exists'});
+        }
+
         const userData = {
             ...req.body,
             password: await this.CryptoService.hashPassword(req.body.password)
         };
         const newUser = this.repository.create(userData);
-        
+
         const result = await this.repository.save(newUser);   
         return res.json(result);
     }
@@ -105,5 +116,18 @@ export class UserController implements IControllerBase {
         }
 
         return res.json({success: false, msg: 'User or friend not found'});
+    }
+
+    private setAvatar = async (req: Request, res: Response): Promise<Response> => {
+        const user = await this.repository.findOne(req.body.user);
+        if (user && req.file) {
+            const avatar = await this.MediaService.saveProfilePicture(req.file, user);            
+            user.avatar = avatar.path
+
+            const result = await this.repository.save(user);
+            return res.json(result);
+        }
+
+        return res.json({success: false, msg: 'User not found'});
     }
 }

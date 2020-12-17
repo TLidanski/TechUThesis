@@ -1,10 +1,10 @@
-<nav class="navbar">
+<nav [ngClass]="{'navbar': true, hide: isAuthenticated}">
     <div class="navbar-content">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">The Network</a>
+            <a routerLink="/" class="navbar-brand">The Network</a>
         </div>
         <div class="navbar-searchbox">
-            <input type="text" name="search" id="search">
+            <input type="text" placeholder="Search" name="search" id="search">
         </div>
         <div class="navbar-links">
             <div id="navbar-home">

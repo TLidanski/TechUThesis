@@ -15,6 +15,11 @@
         @include tablet {
             display: inline;
             padding-top: 5px;
+            width: 30%;
+        }
+
+        @include desktop {
+            width: 20%;
         }
     }
 

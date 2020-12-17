@@ -50,7 +50,7 @@ export class AuthService {
 
             if (user) {
                 req.logIn(user, () => console.log('User logged in'));
-                res.json({msg: 'Authenticated'});
+                res.json({success: true, msg: 'Authenticated', user});
             } else {
                 res.json({success: false, msg: info});
             }
