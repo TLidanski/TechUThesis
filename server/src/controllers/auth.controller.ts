@@ -18,5 +18,8 @@ export class AuthController implements IControllerBase {
             req.logOut();
             res.json({msg: 'Logged out'});
         });
+        this.router.get(this.path + 'isAuthenticated', this.AuthService.isAuthenticated, (req: Request, res: Response) => {
+            res.json({success: true});
+        });
     }
 }

@@ -14,18 +14,18 @@ export class PostService {
 	// }
 
 	getPosts = () => {
-		return this.http.get(`${environment.baseUrl}/posts`);
+		return this.http.get(`${environment.baseUrl}/posts`, {withCredentials: true});
 	}
 
 	getComments = (postId: string) => {
-		return this.http.get(`${environment.baseUrl}/comments/${postId}`);
+		return this.http.get(`${environment.baseUrl}/comments/${postId}`, {withCredentials: true});
 	}
 
 	react = (paramsObj: Object) => {
-		return this.http.post(`${environment.baseUrl}/reactions`, paramsObj);
+		return this.http.post(`${environment.baseUrl}/reactions`, paramsObj, {withCredentials: true});
 	}
 
 	getReactions = (postId: string) => {
-		return this.http.get(`${environment.baseUrl}/reactions/${postId}`);
+		return this.http.get(`${environment.baseUrl}/reactions/${postId}`, {withCredentials: true});
 	}
 }

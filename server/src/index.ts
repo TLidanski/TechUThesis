@@ -30,6 +30,10 @@ createConnection().then(connection => {
             new ChatController()
         ],
         middlewares: [
+            cors({
+                origin: ['http://localhost:4200', 'http://127.0.0.1:4200', 'http://192.168.1.93:4200'],
+                credentials: true
+            }),
             express.json(),
             express.static('static'),
             session({
@@ -39,8 +43,7 @@ createConnection().then(connection => {
                 secret: 'Primetime'
             }),
             passport.initialize(),
-            passport.session(),
-            cors()
+            passport.session()
         ]
     });
     

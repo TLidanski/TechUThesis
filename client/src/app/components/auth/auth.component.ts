@@ -43,18 +43,11 @@ export class AuthComponent implements OnInit {
 	}
 
 	login = () => {
-		this.authService.login(this.loginForm.value).subscribe((response: any) => {
-			if (response.success) {
-				sessionStorage.setItem('currentUser', JSON.stringify(response.user));
-				this.router.navigate(['']);
-			}
-		});
+		this.authService.login(this.loginForm.value);
 	}
 
 	logout = () => {
-		this.authService.logout().subscribe(() => {
-			sessionStorage.removeItem('currentUser');
-		});
+		this.authService.logout();
 	}
 
 	register = () => {
@@ -80,11 +73,6 @@ export class AuthComponent implements OnInit {
 				this.authService.login({
 					username: params.username,
 					password: params.password
-				}).subscribe((response: any) => {
-					if (response.success) {
-						sessionStorage.setItem('currentUser', JSON.stringify(response.user));
-						this.router.navigate(['']);
-					}
 				});
 			});
 		});

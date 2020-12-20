@@ -10,18 +10,18 @@ export class CommentService {
 	constructor(private http: HttpClient) { }
 
 	getCommentReplies = (commentId: string) => {
-		return this.http.get(`${environment.baseUrl}/comments/replies/${commentId}`);
+		return this.http.get(`${environment.baseUrl}/comments/replies/${commentId}`, {withCredentials: true});
 	}
 
 	postComment = (paramsObj: Object) => {
-		return this.http.post(`${environment.baseUrl}/comments`, paramsObj);
+		return this.http.post(`${environment.baseUrl}/comments`, paramsObj, {withCredentials: true});
 	}
 
 	react = (paramsObj: Object) => {
-		return this.http.post(`${environment.baseUrl}/reactions`, paramsObj);
+		return this.http.post(`${environment.baseUrl}/reactions`, paramsObj, {withCredentials: true});
 	}
 
 	getReacts = (commentId: string) => {
-		return this.http.get(`${environment.baseUrl}/reactions/comments/${commentId}`);
+		return this.http.get(`${environment.baseUrl}/reactions/comments/${commentId}`, {withCredentials: true});
 	}
 }

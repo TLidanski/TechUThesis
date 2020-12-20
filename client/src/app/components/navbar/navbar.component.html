@@ -1,4 +1,4 @@
-<nav [ngClass]="{'navbar': true, hide: isAuthenticated}">
+<nav *ngIf="router.url != '/login'" class="navbar">
     <div class="navbar-content">
         <div class="navbar-header">
             <a routerLink="/" class="navbar-brand">The Network</a>
@@ -14,10 +14,10 @@
             </div>
             <div id="navbar-user-profile">
                 <a href="#" class="navbar-link">
-                    <!-- TODO: USE USER AVATAR COMPONENT -->
-                    <img src="{{'baseUrl' | env}}\media\13\image\45fifpres.png" alt="" style="border-radius: 50%;"><span>Tihomir</span>
+                    <app-user-avatar [user]="currentUser"></app-user-avatar><span>Tihomir</span>
                 </a>
             </div>
+            <button class="btn btn-link" (click)="logout()">Logout</button>
         </div>
     </div>
 </nav>

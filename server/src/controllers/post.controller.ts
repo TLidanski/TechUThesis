@@ -19,9 +19,9 @@ export class PostController implements IControllerBase {
     }
 
     public initRoutes = () => {
-        this.router.get(this.path, this.get);
-        this.router.get(this.path + '/:id', /* this.AuthService.isAuthenticated, */ this.getById);
-        this.router.post(this.path, /* this.AuthService.isAuthenticated, */ this.MediaService.upload.array('media', this.maxMediaNumber), this.create);
+        this.router.get(this.path, this.AuthService.isAuthenticated, this.get);
+        this.router.get(this.path + '/:id', this.AuthService.isAuthenticated, this.getById);
+        this.router.post(this.path, this.AuthService.isAuthenticated, this.MediaService.upload.array('media', this.maxMediaNumber), this.create);
     }
 
     private get = async (req: Request, res: Response): Promise<Response> => {
