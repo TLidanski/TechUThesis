@@ -24,6 +24,7 @@ import { AuthComponent } from './components/auth/auth.component';
 
 import { AuthGuard } from '../app/auth/auth.guard';
 import { FileInputComponent } from './components/file-input/file-input.component';
+import { FriendListItemComponent } from './components/friend-list-item/friend-list-item.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -47,7 +48,8 @@ const routes: Routes = [
     ReactionsDataComponent,
     CommentsModalComponent,
     AuthComponent,
-    FileInputComponent
+    FileInputComponent,
+    FriendListItemComponent
   ],
   imports: [
     BrowserModule,

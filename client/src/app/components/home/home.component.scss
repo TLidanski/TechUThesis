@@ -2,16 +2,16 @@
 
 section {
     @include tablet {
-        width: 80%;
+        width: 100%;
         margin: 0 auto;
         display: flex;
 
         .posts {
-            width: 70%;
+            width: 65%;
         }
     }
 
     @include desktop {
-        width: 65%;
+        width: 75%;
     }
 }

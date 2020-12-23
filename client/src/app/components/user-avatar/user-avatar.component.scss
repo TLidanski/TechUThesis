@@ -9,3 +9,12 @@
 :host-context(.navbar) .user-avatar {
     width: 50px;
 }
+
+:host-context(.comment-form) .user-avatar {
+    width: 35px;
+    padding: 0 5px
+}
+
+:host-context(.friend-data) .user-avatar {
+    width: 40px;
+}

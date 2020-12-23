@@ -1,0 +1,7 @@
+<div class="friend-data flex">
+    <app-user-avatar [user]="user"></app-user-avatar>
+    <span id="friend-name">{{user | fullName}}</span>
+    <div *ngIf="false" class="unread-msg-count">
+        <span>10</span>
+    </div>
+</div>

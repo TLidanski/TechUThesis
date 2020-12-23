@@ -11,5 +11,29 @@
         overflow-x: hidden;
     }
 
-    @include desktop {}
+    @include desktop {
+        padding: 15px;
+        width: 25%;
+    }
+
+    h3 {
+        margin: 5px 0;
+    }
+
+    &-header {
+        padding: 5px;
+    }
+
+    &-content {
+        box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.75);
+    }
+
+    .user-data {
+        padding: 0 10px;
+    }
+}
+
+.copyright {
+    color: grey;
+    padding-top: 5px;
 }

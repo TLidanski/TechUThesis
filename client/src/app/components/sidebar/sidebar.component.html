@@ -1,3 +1,23 @@
 <div class="sidebar">
-    <p>Sidebar</p>
+    <div class="sidebar-content">
+
+        <div class="sidebar-header flex">
+            <app-user-avatar [user]="currentUser"></app-user-avatar>
+            <div class="user-data">
+                <h3>{{currentUser | fullName}}</h3>
+                <div><span>{{currentUser.username}}</span></div>
+            </div>
+        </div>
+
+        <div class="sidebar-body">
+
+            <ng-container *ngFor="let friend of friends">
+                <app-friend-list-item [user]="friend"></app-friend-list-item>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="copyright">
+        © {{year}} The Network. All rights reserved
+    </div>
 </div>

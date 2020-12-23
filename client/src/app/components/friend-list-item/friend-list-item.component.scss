@@ -1,0 +1,18 @@
+.friend-data {
+    padding: 5px;
+
+    #friend-name {
+        flex: 2;
+        padding: 10px;
+    }
+
+    .unread-msg-count {
+        color: #fff;
+        background-color: #dc3545;
+        padding: 10px;
+
+        span {
+            font-weight: bold;
+        }
+    }
+}
