@@ -3,6 +3,7 @@ import { Post } from './Post';
 import { Reaction } from './Reaction';
 import { Comment } from './Comment';
 import { Album } from './Album';
+import { FriendRequest } from './FriendRequest';
 
 export enum Gender {
     MALE = 'Male',
@@ -56,6 +57,12 @@ export class User {
 
     @OneToMany(type => Album, album => album.user)
     albums: Album[];
+
+    @OneToMany(type => FriendRequest, friendRequest => friendRequest.from)
+    requested: FriendRequest[];
+
+    @OneToMany(type => FriendRequest, friendRequest => friendRequest.to)
+    requests: FriendRequest[];
 
     @ManyToMany(type => User, {
         cascade: true,

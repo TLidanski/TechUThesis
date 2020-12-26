@@ -15,6 +15,9 @@ export class Post {
     @CreateDateColumn()
     createdAt: Date;
 
+    @Column({ nullable: true })
+    userId: number;
+
     @ManyToOne(type => User, user => user.posts)
     user: User;
 

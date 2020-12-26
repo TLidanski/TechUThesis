@@ -1,0 +1,36 @@
+<section class="profile">
+    <div class="profile-header flex">
+
+        <div class="avatar">
+            <app-user-avatar *ngIf="user" [user]="user"></app-user-avatar>
+        </div>
+        <div *ngIf="user" class="data">
+            <div id="user-name">
+                <h1>{{user | fullName}}</h1>
+                <div routerLink="/edit-profile" *ngIf="currentUser.id === user.id" class="edit-profile"><button class="btn btn-primary">Edit Profile</button></div>
+                <div *ngIf="currentUser.id !== user.id" class="add-friend">
+                    <button class="btn btn-primary" (click)="sendFriendRequest()" [disabled]="friendRequestSent">
+                        <img src="{{'baseUrl' | env}}\media\add-friend.svg" alt="">
+                        <p>{{friendRequestSent ? 'Friend Request Sent' : 'Send Friend Request'}}</p>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <h2>{{user.username}}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-body">
+        <div class="profile-tabs flex">
+            <button routerLink="posts" routerLinkActive="active" class="btn btn-tab">Posts</button>
+            <button routerLink="media" routerLinkActive="active" class="btn btn-tab">Pics/Videos</button>
+            <button routerLink="albums" routerLinkActive="active" class="btn btn-tab">Albums</button>
+            <button routerLink="friends" routerLinkActive="active" class="btn btn-tab">Friends</button>
+        </div>
+        
+        <router-outlet></router-outlet>
+        
+    </div>
+</section>

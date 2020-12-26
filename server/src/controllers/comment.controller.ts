@@ -29,7 +29,8 @@ export class CommentController implements IControllerBase {
     private getByPostId = async (req: Request, res: Response): Promise<Response> => {
         const comment = await this.repository.find({
             relations: ['author', 'post', 'reactions', 'replies', 'reactions.user'],
-            where: {postId: req.params.postId}
+            where: {postId: req.params.postId},
+            order: {createdAt: 'DESC'}
         });
         return res.json(comment);
     }
@@ -37,7 +38,8 @@ export class CommentController implements IControllerBase {
     private getByCommentId = async (req: Request, res: Response): Promise<Response> => {
         const comment = await this.repository.find({
             relations: ['author', 'reactions', 'reactions.user'],
-            where: {parentCommentId: req.params.commentId}
+            where: {parentCommentId: req.params.commentId},
+            order: {createdAt: 'DESC'}
         });
         return res.json(comment);
     }

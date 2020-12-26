@@ -1,5 +1,9 @@
 .friend-data {
-    padding: 5px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.5;
+    }
 
     #friend-name {
         flex: 2;

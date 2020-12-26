@@ -1,0 +1,6 @@
+<ng-container *ngFor="let m of media">
+    <div class="media-wrapper">
+        <img *ngIf="m.type === 'image'" src="{{'baseUrl' | env}}\{{m.path}}" alt="">
+        <video *ngIf="m.type === 'video'" src="{{'baseUrl' | env}}\{{m.path}}" controls></video>
+    </div>
+</ng-container>

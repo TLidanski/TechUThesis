@@ -1,0 +1,56 @@
+@import '../../scss/mixins.scss';
+
+.profile {
+    margin: 15px auto;
+    width: 100%;
+
+    @include desktop {
+        width: 60%;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        margin: 0;
+    }
+
+    &-tabs {
+        padding-bottom: 30px;
+    }
+
+    .data {
+        flex: 2;
+        padding: 0 60px;
+
+        #user-name {
+            @include tablet {
+                display: flex;
+            }
+        }
+
+        .edit-profile, .add-friend {
+            align-self: center;
+
+            @include tablet {
+                padding-left: 60px;
+            }
+
+            img {
+                width: 20px;
+            }
+        }
+
+        .add-friend {
+            p {
+                display: none;
+                @include tablet {
+                    display: inline;
+                    padding: 0 5px;
+                }
+            }
+        }
+
+    }
+}

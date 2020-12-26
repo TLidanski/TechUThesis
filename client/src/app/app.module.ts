@@ -25,10 +25,21 @@ import { AuthComponent } from './components/auth/auth.component';
 import { AuthGuard } from '../app/auth/auth.guard';
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { FriendListItemComponent } from './components/friend-list-item/friend-list-item.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserProfilePostsComponent } from './components/user-profile-posts/user-profile-posts.component';
+import { UserProfileMediaComponent } from './components/user-profile-media/user-profile-media.component';
+import { UserProfileAlbumsComponent } from './components/user-profile-albums/user-profile-albums.component';
+import { UserProfileFriendsComponent } from './components/user-profile-friends/user-profile-friends.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: AuthComponent}
+  {path: 'login', component: AuthComponent},
+  {path: 'user/:username', component: UserProfileComponent, children: [
+    {path: 'posts', component: UserProfilePostsComponent},
+    {path: 'media', component: UserProfileMediaComponent},
+    {path: 'albums', component: UserProfileAlbumsComponent},
+    {path: 'friends', component: UserProfileFriendsComponent}
+  ]}
 ];
 
 @NgModule({
@@ -49,7 +60,12 @@ const routes: Routes = [
     CommentsModalComponent,
     AuthComponent,
     FileInputComponent,
-    FriendListItemComponent
+    FriendListItemComponent,
+    UserProfileComponent,
+    UserProfilePostsComponent,
+    UserProfileMediaComponent,
+    UserProfileAlbumsComponent,
+    UserProfileFriendsComponent
   ],
   imports: [
     BrowserModule,

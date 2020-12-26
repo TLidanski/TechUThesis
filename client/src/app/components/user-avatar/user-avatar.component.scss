@@ -18,3 +18,7 @@
 :host-context(.friend-data) .user-avatar {
     width: 40px;
 }
+
+:host-context(.profile .avatar) .user-avatar {
+    width: 150px;
+}

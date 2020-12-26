@@ -1,9 +1,13 @@
 import express, { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import { Like } from 'typeorm';
 
 import { User } from '../entity/User';
+import { Media } from '../entity/Media';
+import { FriendRequest } from '../entity/FriendRequest';
 import { CryptoService } from '../services/crypto.service';
 import { MediaService } from '../services/media.service';
+import { AuthService } from '../services/auth.service';
 import IControllerBase from '../interfaces/IControllerBase.interface';
 
 export class UserController implements IControllerBase {
@@ -12,23 +16,30 @@ export class UserController implements IControllerBase {
     private repository = getRepository(User);
     private CryptoService: CryptoService = new CryptoService();
     private MediaService: MediaService = new MediaService();
+    private AuthService: AuthService = new AuthService();
 
     constructor() {
         this.initRoutes();
     }
 
     public initRoutes = () => {
-        this.router.get(this.path + '/id/:id', this.getById);
-        this.router.get(this.path + '/:username', this.getByUsername);
-        this.router.post(this.path, this.create);
-        this.router.put(this.path + '/:id', this.edit);
-        this.router.delete(this.path + '/:id', this.delete);
+        this.router.get(this.path + '/id/:id', this.AuthService.isAuthenticated, this.getById);
+        this.router.get(this.path + '/:username', this.AuthService.isAuthenticated, this.getByUsername);
+        this.router.post(this.path, this.AuthService.isAuthenticated, this.create);
+        this.router.put(this.path + '/:id', this.AuthService.isAuthenticated, this.edit);
+        this.router.delete(this.path + '/:id', this.AuthService.isAuthenticated, this.delete);
 
-        this.router.post(this.path + '/avatar', this.MediaService.upload.single('avatar'), this.setAvatar);
+        this.router.post(this.path + '/avatar', this.AuthService.isAuthenticated, this.MediaService.upload.single('avatar'), this.setAvatar);
 
-        this.router.get(this.path + '/friends/:id', this.getFriends);
-        this.router.post(this.path + '/friends/:id', this.addFriend);
-        this.router.delete(this.path + '/friends/:id', this.removeFriend);
+        this.router.get(this.path + '/friends/:id', this.AuthService.isAuthenticated, this.getFriends);
+        this.router.post(this.path + '/friends', this.AuthService.isAuthenticated, this.addFriend);
+        this.router.delete(this.path + '/friends/:id', this.AuthService.isAuthenticated, this.removeFriend);
+
+        this.router.get(this.path + '/media/:id', this.AuthService.isAuthenticated, this.getUserMedia);
+
+        this.router.get(this.path + '/friends/request/:id', this.AuthService.isAuthenticated, this.getFriendRequests);
+        this.router.post(this.path + '/friends/request', this.AuthService.isAuthenticated, this.createFriendRequest);
+        this.router.post(this.path + '/friends/has-friend', this.AuthService.isAuthenticated, this.hasFriend);
     }
 
     private getById = async (req: Request, res: Response): Promise<Response> => {
@@ -37,7 +48,10 @@ export class UserController implements IControllerBase {
     }
 
     private getByUsername = async (req: Request, res: Response): Promise<Response> => {
-        const user = await this.repository.findOne({username: req.params.username});
+        const user = await this.repository.findOne({
+            where: {username: req.params.username}
+        });
+
         return res.json(user);
     }
 
@@ -89,9 +103,12 @@ export class UserController implements IControllerBase {
     }
 
     private addFriend = async (req: Request, res: Response): Promise<Response> => {
-        const user = await this.repository.findOne(req.params.id, {relations: ['friends']});
+        const user = await this.repository.findOne(req.body.id, {relations: ['friends']});
         const friend = await this.repository.findOne(req.body.friendId, {relations: ['friends']});
         if (user && friend) {
+            const requestRepo = getRepository(FriendRequest);
+            requestRepo.delete({toId: req.body.id, fromId: req.body.friendId});
+
             user.friends.push(friend);
             friend.friends.push(user);
 
@@ -103,7 +120,7 @@ export class UserController implements IControllerBase {
     }
 
     private removeFriend = async (req: Request, res: Response): Promise<Response> => {
-        const user = await this.repository.findOne(req.params.id, {relations: ['friends']});
+        const user = await this.repository.findOne(req.body.id, {relations: ['friends']});
         const friend = await this.repository.findOne(req.body.friendId, {relations: ['friends']});
         if (user && friend) {
             user.friends = user.friends.filter(friend => friend.id !== req.body.friendId);
@@ -129,5 +146,42 @@ export class UserController implements IControllerBase {
         }
 
         return res.json({success: false, msg: 'User not found'});
+    }
+
+    private getUserMedia = async (req: Request, res: Response): Promise<Response> => {
+        const mediaRepo = getRepository(Media);
+        const media = await mediaRepo.find({
+            path: Like(`%media\\\\${req.params.id}%`)
+        });
+
+        return res.json(media);
+    }
+
+    private createFriendRequest = async (req: Request, res: Response): Promise<Response> => {
+        const requestRepo = getRepository(FriendRequest);
+        const requestObj = requestRepo.create(req.body);
+        const request = await requestRepo.save(requestObj);
+
+        return res.json(request);
+    }
+
+    private getFriendRequests = async (req: Request, res: Response): Promise<Response> => {
+        const requestRepo = getRepository(FriendRequest);
+        const requests = await requestRepo.find({
+            relations: ['from', 'to'],
+            where: {toId: parseInt(req.params.id)}
+        });
+
+        return res.json(requests);
+    }
+
+    private hasFriend = async (req: Request, res: Response): Promise<Response> => {
+        let hasFriend = false;
+        const user = await this.repository.findOne(req.body.id, {relations: ['friends']});
+        if (user) {
+            hasFriend = user.friends.some(u => u.id === req.body.friendId);
+        }
+
+        return res.json({hasFriend});
     }
 }
