@@ -25,6 +25,5 @@ export class SidebarComponent implements OnInit {
 
 	setFriends = async () => {
 		this.friends = await this.userService.getFriends(this.currentUser.id);
-		console.log(this.friends);
 	}
 }

@@ -7,17 +7,44 @@
             <input type="text" placeholder="Search" name="search" id="search">
         </div>
         <div class="navbar-links">
-            <div id="navbar-home">
+            <!-- <div id="navbar-home">
                 <a routerLink="/" routerLinkActive="active" class="navbar-link">
                     <img src="{{'baseUrl' | env}}\media\home.svg" alt="">
                 </a>
-            </div>
+            </div> -->
             <div id="navbar-user-profile">
-                <a routerLink="/user/{{currentUser.username}}/posts" class="navbar-link">
+                <div class="user-profile-container">
                     <app-user-avatar [user]="currentUser"></app-user-avatar>
-                </a>
+                </div>
+                <div class="profile-tooltip">
+                    <div class="profile">
+                        <button class="btn btn-link" routerLink="/user/{{currentUser.username}}/posts">Profile</button>
+                    </div>
+                    <div *ngIf="friendRequests" class="friend-requests">
+                        Friend Requests ({{friendRequests.length}}):
+                        <div class="friend-request" *ngFor="let request of friendRequests">
+                        
+                            <div class="flex">
+                                <app-user-avatar [user]="request.from"></app-user-avatar>
+                                <a class="friend-request-from" routerLink="/user{{request.from.username}}/posts">
+                                    {{request.from | fullName}}
+                                </a>
+                            </div>
+                            <div>
+                                <p>Requested on: {{request.createdAt | date:'fullDate'}}</p>
+                            </div>
+                            <div class="friend-request-actions">
+                                <button class="btn btn-primary" (click)="acceptFriendRequest(request)">Accept</button>
+                                <button class="btn btn-danger" (click)="declineFriendRequest(request)">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="logout">
+                        <button class="btn btn-link" (click)="logout()">Logout</button>
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-link" (click)="logout()">Logout</button>
+
         </div>
     </div>
 </nav>

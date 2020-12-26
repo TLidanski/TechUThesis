@@ -1,1 +1,1 @@
-<img *ngIf="user" src="{{'baseUrl' | env}}\{{user.avatar}}" alt="{{user | fullName}}" class="user-avatar img-circle">
+<a routerLink="/user/{{user.username}}/posts"><img *ngIf="user" src="{{'baseUrl' | env}}\{{user.avatar}}" alt="{{user | fullName}}" class="user-avatar img-circle"></a>

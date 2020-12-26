@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { User } from './User';
 
 @Entity()
@@ -17,4 +17,7 @@ export class FriendRequest {
 
     @ManyToOne(() => User, user => user.requests)
     to: User;
+    
+    @CreateDateColumn()
+    createdAt: Date;
 }

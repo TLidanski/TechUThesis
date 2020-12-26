@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
 	selector: 'app-navbar',
@@ -8,10 +9,12 @@ import { AuthService } from 'src/app/services/auth.service';
 	styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-	currentUser: Object = null;
+	currentUser: any;
+	friendRequests;
 
 	constructor(
 		private authService: AuthService,
+		private userService: UserService,
 		public router: Router
 	) {}
 
@@ -20,9 +23,25 @@ export class NavbarComponent implements OnInit {
 		if (userLocalStorageItem) {
 			this.currentUser = JSON.parse(userLocalStorageItem);
 		}
+
+		this.getFriendRequests();
 	}
 
 	logout = () => {
 		this.authService.logout();
+	}
+
+	getFriendRequests = async () => {
+		this.friendRequests = await this.userService.getFriendRequests(this.currentUser.id);
+	}
+
+	acceptFriendRequest = async (request) => {
+		await this.userService.acceptFriendRequest({id: request.toId, friendId: request.fromId});
+		this.getFriendRequests();
+	}
+
+	declineFriendRequest = async (request) => {
+		await this.userService.deleteFriendRequest(request.id);
+		this.getFriendRequests();
 	}
 }

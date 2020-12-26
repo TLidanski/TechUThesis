@@ -48,6 +48,20 @@ export class UserService {
 		});
 	}
 
+	acceptFriendRequest = (params: Object) => {
+		return new Promise(resolve => {
+
+			this.http.post(`${environment.baseUrl}/users/friends`, params, {withCredentials: true}).subscribe(res => resolve(res));
+		});
+	}
+
+	deleteFriendRequest = (id: string) => {
+		return new Promise(resolve => {
+
+			this.http.delete(`${environment.baseUrl}/users/friends/request/${id}`, {withCredentials: true}).subscribe(res => resolve(res));
+		});
+	}
+
 	getFriendRequests = (userId: string) => {
 		return new Promise(resolve => {
 

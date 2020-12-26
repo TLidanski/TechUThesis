@@ -9,9 +9,14 @@
                 <h1>{{user | fullName}}</h1>
                 <div routerLink="/edit-profile" *ngIf="currentUser.id === user.id" class="edit-profile"><button class="btn btn-primary">Edit Profile</button></div>
                 <div *ngIf="currentUser.id !== user.id" class="add-friend">
-                    <button class="btn btn-primary" (click)="sendFriendRequest()" [disabled]="friendRequestSent">
+                    <button *ngIf="!isFriend" class="btn btn-primary" (click)="sendFriendRequest()" [disabled]="friendRequestSent">
                         <img src="{{'baseUrl' | env}}\media\add-friend.svg" alt="">
                         <p>{{friendRequestSent ? 'Friend Request Sent' : 'Send Friend Request'}}</p>
+                    </button>
+
+                    <button *ngIf="isFriend" class="btn btn-link">
+                        <img src="{{'baseUrl' | env}}\media\tick.svg" alt="">
+                        Friends
                     </button>
                 </div>
             </div>

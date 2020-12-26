@@ -31,6 +31,71 @@
     &-links {
         display: flex;
         justify-content: space-between;
+
+        #navbar-user-profile {
+            position: relative;
+
+            &:hover .profile-tooltip {
+                visibility: visible;
+            }
+        }
+
+        .user-profile-container {
+            cursor: pointer;
+        }
+
+        .profile-tooltip {
+            visibility: hidden;
+            width: 300px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 2;
+            background-color: white;
+            box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.75);
+
+            top: 100%;
+            margin-left: -150px;
+            left: -195%;
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: 100%;
+                left: 91%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent transparent white transparent;
+            }
+        
+            .profile {
+                border-bottom: 1px solid black;
+            }
+    
+            .logout { 
+                border-top: 1px solid black;
+            }
+
+            .friend-requests {
+                max-height: 145px;
+                overflow-y: auto;
+            }
+
+            .friend-request {
+                padding: 5px 0;
+                p {
+                    display: inline;
+                }
+
+                button {
+                    width: 50%;
+                }
+
+                &-from {
+                    padding: 13px;
+                }
+            }
+        }
     }
 
     &-link {

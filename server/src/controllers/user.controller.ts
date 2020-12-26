@@ -38,6 +38,7 @@ export class UserController implements IControllerBase {
         this.router.get(this.path + '/media/:id', this.AuthService.isAuthenticated, this.getUserMedia);
 
         this.router.get(this.path + '/friends/request/:id', this.AuthService.isAuthenticated, this.getFriendRequests);
+        this.router.delete(this.path + '/friends/request/:id', this.AuthService.isAuthenticated, this.deleteFriendRequest);
         this.router.post(this.path + '/friends/request', this.AuthService.isAuthenticated, this.createFriendRequest);
         this.router.post(this.path + '/friends/has-friend', this.AuthService.isAuthenticated, this.hasFriend);
     }
@@ -107,7 +108,7 @@ export class UserController implements IControllerBase {
         const friend = await this.repository.findOne(req.body.friendId, {relations: ['friends']});
         if (user && friend) {
             const requestRepo = getRepository(FriendRequest);
-            requestRepo.delete({toId: req.body.id, fromId: req.body.friendId});
+            await requestRepo.delete({toId: req.body.id, fromId: req.body.friendId});
 
             user.friends.push(friend);
             friend.friends.push(user);
@@ -173,6 +174,14 @@ export class UserController implements IControllerBase {
         });
 
         return res.json(requests);
+    }
+
+    private deleteFriendRequest = async (req: Request, res: Response): Promise<Response> => {
+        console.log(req.params);
+        const requestRepo = getRepository(FriendRequest);
+        const result = await requestRepo.delete(req.params.id);
+
+        return res.json(result);
     }
 
     private hasFriend = async (req: Request, res: Response): Promise<Response> => {

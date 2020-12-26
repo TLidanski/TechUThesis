@@ -2,7 +2,7 @@
     <header *ngIf="post.user" class="post-header">
         <app-user-avatar [user]="post.user"></app-user-avatar>
         <div class="post-author">
-            <h3>{{post.user | fullName}}</h3>
+            <a routerLink="/user/{{post.user.username}}/posts"><h3>{{post.user | fullName}}</h3></a>
             <span id="post-timestamp">{{post.createdAt | date:'fullDate'}} {{post.createdAt | date:'shortTime'}}</span>
         </div>
     </header>
