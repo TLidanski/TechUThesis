@@ -1,0 +1,10 @@
+<div class="post-form">
+    <form class="post-form" [formGroup]="postForm" (ngSubmit)="post()" enctype="multipart/form-data">
+        <input id="post-text" type="text" formControlName="text" placeholder="What's on your mind?" name="text">
+
+        <app-file-input [element]="'media'" [text]="'Upload pics or videos'" [images]="previewImages"></app-file-input>
+        <input type="file" formControlName="media" name="media" id="media" (change)="onMediaSelect($event)" multiple>
+
+        <button id="post-btn" type="submit" class="btn btn-primary" *ngIf="postForm.valid">Post It!</button>
+    </form>
+</div>

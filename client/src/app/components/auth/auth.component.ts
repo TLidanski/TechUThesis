@@ -83,19 +83,20 @@ export class AuthComponent implements OnInit {
 	}
 
 	prepareImageForPreview = (files) => {
-		const reader = new FileReader();
-
-		reader.onload = (e: any) => {
-			this.imagesForPreview.push(e.target.result);
-		}
-
 		for (const file of files) {
+			const reader = new FileReader();
+
+			reader.onload = (e: any) => {
+				this.imagesForPreview.push(e.target.result);
+			}
+
 			reader.readAsDataURL(file);		
 		}
 	}
 
 	onImageSelect = (event) => {
 		const files = event.target.files;
+		this.imagesForPreview = [];
 
 		if (files.length) {
 			this.avatar = files[0];

@@ -30,6 +30,7 @@ import { UserProfilePostsComponent } from './components/user-profile-posts/user-
 import { UserProfileMediaComponent } from './components/user-profile-media/user-profile-media.component';
 import { UserProfileAlbumsComponent } from './components/user-profile-albums/user-profile-albums.component';
 import { UserProfileFriendsComponent } from './components/user-profile-friends/user-profile-friends.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -65,7 +66,8 @@ const routes: Routes = [
     UserProfilePostsComponent,
     UserProfileMediaComponent,
     UserProfileAlbumsComponent,
-    UserProfileFriendsComponent
+    UserProfileFriendsComponent,
+    PostFormComponent
   ],
   imports: [
     BrowserModule,

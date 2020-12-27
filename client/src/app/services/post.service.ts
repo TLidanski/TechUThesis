@@ -28,4 +28,11 @@ export class PostService {
 	getReactions = (postId: string) => {
 		return this.http.get(`${environment.baseUrl}/reactions/${postId}`, {withCredentials: true});
 	}
+
+	post = (params: FormData) => {
+		return new Promise(resolve => {
+
+			this.http.post(`${environment.baseUrl}/posts`, params, {withCredentials: true}).subscribe(res => resolve(res));
+		});
+	}
 }
