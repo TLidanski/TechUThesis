@@ -23,18 +23,6 @@ export class PostComponent implements OnInit {
 		});
 	}
 
-	like = () => {
-		const params = {
-			reaction: 'LIKE',
-			user: 13,
-			postId: this.post.id
-		};
-
-		this.postService.react(params).subscribe(response => {
-			console.log(response);
-		});
-	}
-
 	reactionAdded = () => {
 		this.postService.getReactions(this.post.id).subscribe(reactions => {
 			this.post.reactions = reactions;

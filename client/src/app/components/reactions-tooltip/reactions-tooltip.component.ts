@@ -12,6 +12,7 @@ export class ReactionsTooltipComponent implements OnInit {
 	@Input() context: 'post' | 'comment' = 'post';
 	@Output() newReactionEvent = new EventEmitter<any>();
 
+	currentUser;
 	activeService;
 	reactions = [
 		{
@@ -43,7 +44,12 @@ export class ReactionsTooltipComponent implements OnInit {
 	constructor(
 		private postService: PostService,
 		private commentService: CommentService
-	) { }
+	) {
+		const userLocalStorageItem = localStorage.getItem('currentUser');
+		if (userLocalStorageItem) {
+			this.currentUser = JSON.parse(userLocalStorageItem);
+		}
+	}
 
 	ngOnInit(): void {
 		this.activeService = {
@@ -56,7 +62,7 @@ export class ReactionsTooltipComponent implements OnInit {
 		const key = this.context === 'post' ? 'postId' : 'commentId';
 		const params = {
 			reaction: event.target.id,
-			user: 13,
+			user: this.currentUser.id,
 			[key]: this.id
 		};
 

@@ -11,7 +11,7 @@ export class CommentFormComponent implements OnInit {
 	@Input() id: string;
 	@Input() context: 'post' | 'comment' = 'post';
 	@Output() newCommentEvent = new EventEmitter<any>();
-	currentUser: Object;
+	currentUser: any;
 
 	commentForm: FormGroup = new FormGroup({
 		comment: new FormControl('', Validators.required)
@@ -30,7 +30,7 @@ export class CommentFormComponent implements OnInit {
 		const key = this.context === 'post' ? 'postId' : 'parentCommentId';
 		const paramsObj: Object = {
 			text: this.commentForm.value.comment,
-			author: 13, // TODO: Don't use hardcoded value
+			author: this.currentUser.id,
 			[key]: this.id
 		};
 

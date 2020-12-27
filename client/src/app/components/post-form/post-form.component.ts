@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { PostService } from '../../services/post.service';
@@ -17,6 +17,7 @@ export class PostFormComponent implements OnInit {
 		text: new FormControl('', Validators.required),
 		media: new FormControl('')
 	});
+	@Output() newPostEvent: EventEmitter<any> = new EventEmitter();
 
 	constructor(private postService: PostService) {
 		const userLocalStorageItem = localStorage.getItem('currentUser');
@@ -34,11 +35,15 @@ export class PostFormComponent implements OnInit {
 		formData.append('userId', this.currentUser.id);
 		formData.append('text', this.postForm.value.text);
 		
-		for (const file of this.media) {
-			formData.append('media', file);
+		if (this.media) {
+			for (const file of this.media) {
+				formData.append('media', file);
+			}
 		}
 
-		await this.postService.post(formData);
+		const post = await this.postService.post(formData);
+		this.newPostEvent.emit(post);
+		this.postForm.reset();
 	}
 
 	prepareImagesForPreview = (files) => {
