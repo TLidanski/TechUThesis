@@ -9,6 +9,7 @@
         position: fixed;
         z-index: 1;
         overflow-x: hidden;
+        overflow-y: hidden;
     }
 
     @include desktop {
@@ -23,6 +24,12 @@
     &-content {
         padding: 5px;
         box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.75);
+    }
+
+    &-body {
+        position: relative;
+        max-height: 300px;
+        overflow-y: auto;
     }
 
     .user-data {

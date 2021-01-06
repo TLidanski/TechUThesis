@@ -26,7 +26,7 @@ export class CommentFormComponent implements OnInit {
 		}
 	}
 
-	onSubmit() {
+	onSubmit = () => {
 		const key = this.context === 'post' ? 'postId' : 'parentCommentId';
 		const paramsObj: Object = {
 			text: this.commentForm.value.comment,

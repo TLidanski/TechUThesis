@@ -4,6 +4,8 @@ import { Reaction } from './Reaction';
 import { Comment } from './Comment';
 import { Album } from './Album';
 import { FriendRequest } from './FriendRequest';
+import { ChatMessage } from './ChatMessage';
+import { ChatRoom } from './ChatRoom';
 
 export enum Gender {
     MALE = 'Male',
@@ -63,6 +65,12 @@ export class User {
 
     @OneToMany(type => FriendRequest, friendRequest => friendRequest.to)
     requests: FriendRequest[];
+
+    @OneToMany(type => ChatMessage, chatMessage => chatMessage.author)
+    chatMessages: ChatMessage[];
+
+    @ManyToMany(type => ChatRoom, chatRoom => chatRoom.users)
+    chatRooms: ChatRoom[];
 
     @ManyToMany(type => User, {
         cascade: true,

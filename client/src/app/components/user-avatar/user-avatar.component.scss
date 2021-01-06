@@ -22,3 +22,7 @@
 :host-context(.profile .avatar) .user-avatar {
     width: 150px;
 }
+
+:host-context(.chat-header) .user-avatar {
+    width: 70px;
+}

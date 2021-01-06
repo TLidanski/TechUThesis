@@ -7,10 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FriendListItemComponent implements OnInit {
   @Input() user;
+  show: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  toggle = () => {
+  	this.show = !this.show;
+	}
 
 }

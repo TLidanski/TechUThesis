@@ -31,6 +31,7 @@ import { UserProfileMediaComponent } from './components/user-profile-media/user-
 import { UserProfileAlbumsComponent } from './components/user-profile-albums/user-profile-albums.component';
 import { UserProfileFriendsComponent } from './components/user-profile-friends/user-profile-friends.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -67,7 +68,8 @@ const routes: Routes = [
     UserProfileMediaComponent,
     UserProfileAlbumsComponent,
     UserProfileFriendsComponent,
-    PostFormComponent
+    PostFormComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

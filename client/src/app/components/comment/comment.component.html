@@ -2,7 +2,7 @@
     <div class="flex">
         <app-user-avatar [user]="comment.author"></app-user-avatar>
         <div class="comment-text">
-            <a href="#">{{comment.author | fullName}}</a>
+            <a routerLink="/user/{{comment.author.username}}/posts">{{comment.author | fullName}}</a>
             <span id="comment-timestamp">{{comment.createdAt | date:'shortDate'}} {{comment.createdAt | date:'shortTime'}}</span>
             <p>{{comment.text}}</p>
             <app-reactions-data [reactions]="comment.reactions"></app-reactions-data>

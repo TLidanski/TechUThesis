@@ -1,0 +1,30 @@
+<div [ngClass]="{'chat': true, 'show': show}">
+    <div class="chat-content">
+        <div class="chat-header flex">
+            <app-user-avatar [user]="user"></app-user-avatar>
+            <div id="name-wrapper"><a routerLink="/user/{{user.username}}/posts">{{user | fullName}}</a></div>
+            <button class="btn btn-link">
+                <img src="{{'baseUrl' | env}}\media\close.svg" alt="Close" (click)="toggle()">
+            </button>
+        </div>
+    
+        <div class="chat-body">
+            <div *ngFor="let msg of messages">
+
+                <div [ngClass]="{'message': true, 'author-msg': currentUser.id === msg.author.id}">
+                    {{msg.message}}
+                </div>
+            </div>
+        </div>
+    
+        <div class="chat-footer">
+            <form class="chat-form flex" [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+                <!-- <app-user-avatar [user]="currentUser"></app-user-avatar> -->
+                <input id="chat" type="text" formControlName="chat" placeholder="Chat with your friend..." name="comment">
+                <button id="send-btn" type="submit" class="btn btn-primary" [disabled]="!chatForm.valid">
+                    <img id="send" src="{{'baseUrl' | env}}\media\send.svg" alt="Send">
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

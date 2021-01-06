@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import * as server from 'http';
-import io from 'socket.io';
+import { Server } from 'socket.io';
 import IControllerBase from './interfaces/IControllerBase.interface';
 
 import { ChatService } from './services/chat.service';
@@ -9,14 +9,20 @@ export class App {
     private app: Application;
     private port: number;
     private server: server.Server;
-    private io: SocketIO.Server;
+    private io;
     private ChatService: ChatService;
 
     constructor(constructorObj: {port: number, controllers: IControllerBase[], middlewares: any}) {
         this.app = express();
         this.port = constructorObj.port;
         this.server = server.createServer(this.app);
-        this.io = io(this.server);
+        this.io = new Server(this.server, {
+            cors: {
+                origin: "http://localhost:4200",
+                methods: ["GET", "POST"],
+                credentials: true
+            }
+        });
         this.ChatService = new ChatService(this.io);
 
         this.setUpMiddlewares(constructorObj.middlewares);
