@@ -8,7 +8,7 @@
             </button>
         </div>
     
-        <div class="chat-body">
+        <div class="chat-body" #scroll>
             <div *ngFor="let msg of messages" class="flex">
 
                 <app-user-avatar *ngIf="currentUser.id !== msg.author.id" [user]="msg.author"></app-user-avatar>
@@ -22,7 +22,7 @@
     
         <div class="chat-footer">
             <form class="chat-form flex" [formGroup]="chatForm" (ngSubmit)="onSubmit()">
-                <!-- <app-user-avatar [user]="currentUser"></app-user-avatar> -->
+
                 <input id="chat" type="text" formControlName="chat" placeholder="Chat with your friend..." name="comment">
                 <button id="send-btn" type="submit" class="btn btn-primary" [disabled]="!chatForm.valid">
                     <img id="send" src="{{'baseUrl' | env}}\media\send.svg" alt="Send">

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Renderer2, AfterViewChecked, ElementRef, ViewChild, } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -10,10 +10,11 @@ import { io } from 'socket.io-client';
 	templateUrl: './chat.component.html',
 	styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, OnChanges {
+export class ChatComponent implements OnInit, AfterViewChecked {
 	@Input() user;
 	@Input() show;
 	@Output() toggleModalEvent = new EventEmitter<any>();
+	@ViewChild('scroll') private scroll: ElementRef;
 	public currentUser;
 	public messages: any[];
 	public chatForm: FormGroup = new FormGroup({
@@ -37,18 +38,20 @@ export class ChatComponent implements OnInit, OnChanges {
 		this.initEvents();
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {}
+	ngAfterViewChecked(): void {        
+		this.scrollToBottom();        
+	}
 
 	getMessages = () => {
 		this.http.get(`${environment.baseUrl}/chat/messages/${this.currentUser.id}/${this.user.id}`, {withCredentials: true}).subscribe((messages: any) => {
 			this.messages = messages;
-			console.log(this.messages);
 		});
 	}
 
 	initEvents = () => {
 		this.socket.on('server-message', (msgObj: any) => {
 			this.messages.push(msgObj);
+			this.scrollToBottom();
 		});
 	}
 
@@ -65,5 +68,11 @@ export class ChatComponent implements OnInit, OnChanges {
 
 	toggle = () => {
 		this.toggleModalEvent.emit();
+	}
+
+	scrollToBottom = () => {
+		try {
+            this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+        } catch(err) { }
 	}
 }
