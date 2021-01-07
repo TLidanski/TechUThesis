@@ -13,8 +13,8 @@ export class PostService {
 	// 	return this.http.get(`${environment.baseUrl}/posts/10`);
 	// }
 
-	getPosts = () => {
-		return this.http.get(`${environment.baseUrl}/posts`, {withCredentials: true});
+	getPosts = (paramsObj: any) => {
+		return this.http.get(`${environment.baseUrl}/posts/all/${paramsObj.userId}/${paramsObj.skip}/${paramsObj.take}`, {withCredentials: true});
 	}
 
 	getComments = (postId: string) => {

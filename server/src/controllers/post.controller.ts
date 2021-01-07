@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { getRepository, In } from 'typeorm';
 
 import { Post } from '../entity/Post';
+import { User } from '../entity/User';
 import { MediaService } from '../services/media.service';
 import { AuthService } from '../services/auth.service';
 import IControllerBase from '../interfaces/IControllerBase.interface';
@@ -20,14 +21,32 @@ export class PostController implements IControllerBase {
     }
 
     public initRoutes = () => {
-        this.router.get(this.path, this.AuthService.isAuthenticated, this.get);
+        this.router.get(this.path + '/all/:userId/:skip/:take', this.AuthService.isAuthenticated, this.get);
         this.router.get(this.path + '/:id', this.AuthService.isAuthenticated, this.getById);
         this.router.get(this.path + '/user/:id', this.AuthService.isAuthenticated, this.getUserPosts);
         this.router.post(this.path, this.AuthService.isAuthenticated, this.MediaService.upload.array('media', this.maxMediaNumber), this.create);
     }
 
     private get = async (req: Request, res: Response): Promise<Response> => {
-        const posts = await this.repository.find({relations: this.relations, order: {createdAt: 'DESC'}});
+        const userIdArr: number[] = [parseInt(req.params.userId)];
+        const userRepo = getRepository(User);
+        const user = await userRepo.findOne(req.params.userId, {
+            relations: ['friends']
+        });
+        if (user) {
+            for (const friend of user.friends) {
+                userIdArr.push(friend.id);
+            }
+        }
+
+        const posts = await this.repository.find({
+            relations: this.relations,
+            where: {userId: In(userIdArr)},
+            order: {createdAt: 'DESC'},
+            skip: parseInt(req.params.skip),
+            take: parseInt(req.params.take)
+        });
+
         return res.json(posts);
     }
 
