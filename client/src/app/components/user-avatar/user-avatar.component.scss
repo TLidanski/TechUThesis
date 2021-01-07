@@ -26,3 +26,7 @@
 :host-context(.chat-header) .user-avatar {
     width: 70px;
 }
+
+:host-context(.chat-body) .user-avatar {
+    width: 35px;
+}

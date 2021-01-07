@@ -9,11 +9,14 @@
         </div>
     
         <div class="chat-body">
-            <div *ngFor="let msg of messages">
+            <div *ngFor="let msg of messages" class="flex">
 
+                <app-user-avatar *ngIf="currentUser.id !== msg.author.id" [user]="msg.author"></app-user-avatar>
                 <div [ngClass]="{'message': true, 'author-msg': currentUser.id === msg.author.id}">
                     {{msg.message}}
+                    <span class="msg-timestamp">{{msg.createdAt | date: 'd/M/y'}} {{msg.createdAt | date: 'shortTime'}}</span>
                 </div>
+                <app-user-avatar *ngIf="currentUser.id === msg.author.id" [user]="msg.author"></app-user-avatar>
             </div>
         </div>
     
