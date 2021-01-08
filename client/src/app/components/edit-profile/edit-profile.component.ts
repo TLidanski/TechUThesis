@@ -45,7 +45,7 @@ export class EditProfileComponent implements OnInit {
 			}
 		}
 
-		this.http.put(`${environment.baseUrl}/users/${this.currentUser.id}`, paramObj, {withCredentials: true}).subscribe(() => {
+		this.http.put(`${environment.baseUrl}/users/${this.currentUser.id}`, paramObj, {withCredentials: true}).subscribe((response: any) => {
 			if (this.avatar) {
 				const formData = new FormData();
 				formData.append('user', this.currentUser.id);
@@ -55,6 +55,9 @@ export class EditProfileComponent implements OnInit {
 					this.currentUser = res;
 					localStorage.setItem('currentUser', JSON.stringify(res));
 				});
+			} else {
+				this.currentUser = {...response, avatar: this.currentUser.avatar};
+				localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
 			}
 
 			this.router.navigate(['user', this.currentUser.username, 'posts']);
