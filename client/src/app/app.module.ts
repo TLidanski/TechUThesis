@@ -32,6 +32,7 @@ import { UserProfileAlbumsComponent } from './components/user-profile-albums/use
 import { UserProfileFriendsComponent } from './components/user-profile-friends/user-profile-friends.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -41,7 +42,8 @@ const routes: Routes = [
     {path: 'media', component: UserProfileMediaComponent},
     {path: 'albums', component: UserProfileAlbumsComponent},
     {path: 'friends', component: UserProfileFriendsComponent}
-  ]}
+  ]},
+  {path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -69,7 +71,8 @@ const routes: Routes = [
     UserProfileAlbumsComponent,
     UserProfileFriendsComponent,
     PostFormComponent,
-    ChatComponent
+    ChatComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

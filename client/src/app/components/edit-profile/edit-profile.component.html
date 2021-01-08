@@ -1,0 +1,33 @@
+<div class="edit-profile">
+    <div class="edit-profile-header flex">
+        <app-user-avatar [user]="currentUser"></app-user-avatar>
+        <h1>{{currentUser | fullName}}</h1>
+    </div>
+    <form class="edit-profile-form" [formGroup]="editProfileForm" (ngSubmit)="submit()" enctype="multipart/form-data">
+        <div class="flex">
+            <label for="username">Username</label>
+        </div>
+        <input type="text" formControlName="username" placeholder="Username" name="username">
+
+        <div class="flex">
+            <label for="email">Email</label>
+        </div>
+        <input type="text" formControlName="email" placeholder="Email" name="email">
+
+        <div class="flex">
+            <label for="password">Password</label>
+        </div>
+        <div class="flex">
+            <input type="password" formControlName="password" placeholder="Password" name="password" id="password">
+
+            <input type="password" formControlName="confirmPassword" placeholder="Confirm password" name="confirmPassword" id="confirmPassword">
+        </div>
+
+        <div class="flex">
+            <app-file-input [element]="'avatar'" [text]="'Choose your profile picture'" [images]="imagesForPreview"></app-file-input>
+        </div>
+        <input type="file" formControlName="avatar" name="avatar" id="avatar" (change)="onImageSelect($event)">
+
+        <button type="submit" class="btn btn-primary" [disabled]="!editProfileForm.valid">Edit Profile</button>
+    </form>
+</div>

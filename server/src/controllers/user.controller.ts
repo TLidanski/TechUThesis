@@ -25,11 +25,11 @@ export class UserController implements IControllerBase {
     public initRoutes = () => {
         this.router.get(this.path + '/id/:id', this.AuthService.isAuthenticated, this.getById);
         this.router.get(this.path + '/:username', this.AuthService.isAuthenticated, this.getByUsername);
-        this.router.post(this.path, this.AuthService.isAuthenticated, this.create);
+        this.router.post(this.path, this.create);
         this.router.put(this.path + '/:id', this.AuthService.isAuthenticated, this.edit);
         this.router.delete(this.path + '/:id', this.AuthService.isAuthenticated, this.delete);
 
-        this.router.post(this.path + '/avatar', this.AuthService.isAuthenticated, this.MediaService.upload.single('avatar'), this.setAvatar);
+        this.router.post(this.path + '/avatar', this.MediaService.upload.single('avatar'), this.setAvatar);
 
         this.router.get(this.path + '/friends/:id', this.AuthService.isAuthenticated, this.getFriends);
         this.router.post(this.path + '/friends', this.AuthService.isAuthenticated, this.addFriend);
@@ -62,7 +62,7 @@ export class UserController implements IControllerBase {
             return res.json({success: false, msg: 'Email already exists'});
         }
 
-        if (req.body.password != req.body.confirmPassword) {
+        if (req.body.password !== req.body.confirmPassword) {
             return res.json({success: false, msg: 'Passwords do not match'});
         }
 
@@ -83,6 +83,14 @@ export class UserController implements IControllerBase {
 
     private edit = async (req: Request, res: Response): Promise<Response> => {
         const user = await this.repository.findOne(req.params.id);
+        if ('password' in req.body) {
+            if (req.body.password !== req.body.confirmPassword) {
+                return res.json({success: false, msg: 'Passwords do not match'});
+            }
+
+            req.body.password = await this.CryptoService.hashPassword(req.body.password);
+        }
+
         if (user) {
             this.repository.merge(user, req.body);
             const result = await this.repository.save(user);
@@ -146,7 +154,7 @@ export class UserController implements IControllerBase {
             return res.json(result);
         }
 
-        return res.json({success: false, msg: 'User not found'});
+        return res.json({success: false, msg: 'User not found or image not found'});
     }
 
     private getUserMedia = async (req: Request, res: Response): Promise<Response> => {

@@ -13,6 +13,9 @@ export class Album {
     @Column({type: 'text', nullable: true})
     description: string;
 
+    @Column({ nullable: true })
+    userId: number;
+
     @ManyToOne(type => User, user => user.albums)
     user: User;
 

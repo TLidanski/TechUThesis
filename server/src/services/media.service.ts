@@ -59,13 +59,24 @@ export class MediaService {
         const albumRepo = getRepository(Album);
         const fileRecordArr = await this.saveMedia([file]);
 
-        const profilePicAlbumData = {
-            name: 'Profile Pictures',
-            user: user,
-            media: fileRecordArr
-        };
-        const profilePicAlbum = albumRepo.create(profilePicAlbumData);
-        await albumRepo.save(profilePicAlbum);
+        const existingAlbum = await albumRepo.findOne({
+            relations: ['media'],
+            where: {name: 'Profile Pictures', userId: user.id}
+        });
+        if (existingAlbum) {
+
+            existingAlbum.media.push(fileRecordArr[0]);
+            await albumRepo.save(existingAlbum);
+        } else {
+
+            const profilePicAlbumData = {
+                name: 'Profile Pictures',
+                user: user,
+                media: fileRecordArr
+            };
+            const profilePicAlbum = albumRepo.create(profilePicAlbumData);
+            await albumRepo.save(profilePicAlbum);
+        }
 
         return fileRecordArr[0];
     }

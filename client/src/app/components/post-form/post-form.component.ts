@@ -32,6 +32,7 @@ export class PostFormComponent implements OnInit {
 
 	post = async () => {
 		const formData = new FormData();
+		formData.append('user', this.currentUser.id);
 		formData.append('userId', this.currentUser.id);
 		formData.append('text', this.postForm.value.text);
 		
@@ -42,6 +43,7 @@ export class PostFormComponent implements OnInit {
 		}
 
 		const post = await this.postService.post(formData);
+		this.previewImages = [];
 		this.newPostEvent.emit(post);
 		this.postForm.reset();
 	}
