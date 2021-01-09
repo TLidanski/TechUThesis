@@ -75,4 +75,11 @@ export class UserService {
 			this.http.post(`${environment.baseUrl}/users/friends/has-friend`, params, {withCredentials: true}).subscribe((res: any) => resolve(res.hasFriend));
 		});
 	}
+
+	searchUsers = (query: string) => {
+		return new Promise(resolve => {
+
+			this.http.get(`${environment.baseUrl}/users/search/${query}`, {withCredentials: true}).subscribe(res => resolve(res));
+		});
+	}
 }

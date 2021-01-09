@@ -1,0 +1,21 @@
+.search-result {
+    padding: 5px;
+
+    &-data {
+        margin: 0 5px;
+
+        &-name {
+            font-weight: bold;
+        }
+    }
+
+    &:hover {
+        background-color: #dedcdc;
+    }
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}

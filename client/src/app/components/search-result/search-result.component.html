@@ -1,0 +1,9 @@
+<a routerLink="/user/{{result.username}}/posts" (click)="onSearchClick()">
+    <div class="search-result flex">
+        <app-user-avatar [user]="result"></app-user-avatar>
+        <div class="search-result-data">
+            <div class="search-result-data-name">{{result | fullName}}</div>
+            <div>{{result.username}}</div>
+        </div>
+    </div>
+</a>

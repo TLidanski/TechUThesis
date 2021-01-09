@@ -4,7 +4,12 @@
             <a routerLink="/" class="navbar-brand">The Network</a>
         </div>
         <div class="navbar-searchbox">
-            <input type="text" placeholder="Search" name="search" id="search">
+            <input #search (keyup)="onSearch(search.value)" type="text" placeholder="Search" name="search" id="search">
+            <div *ngIf="searchResults" class="search-results-container">
+                <ng-container *ngFor="let result of searchResults">
+                    <app-search-result [result]="result" (searchClickEvent)="clearSearchInput()"></app-search-result>
+                </ng-container>
+            </div>
         </div>
         <div class="navbar-links">
             <!-- <div id="navbar-home">

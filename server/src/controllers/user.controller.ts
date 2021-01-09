@@ -25,6 +25,7 @@ export class UserController implements IControllerBase {
     public initRoutes = () => {
         this.router.get(this.path + '/id/:id', this.AuthService.isAuthenticated, this.getById);
         this.router.get(this.path + '/:username', this.AuthService.isAuthenticated, this.getByUsername);
+        this.router.get(this.path + '/search/:query', this.AuthService.isAuthenticated, this.searchUsers);
         this.router.post(this.path, this.create);
         this.router.put(this.path + '/:id', this.AuthService.isAuthenticated, this.edit);
         this.router.delete(this.path + '/:id', this.AuthService.isAuthenticated, this.delete);
@@ -54,6 +55,17 @@ export class UserController implements IControllerBase {
         });
 
         return res.json(user);
+    }
+
+    private searchUsers = async (req: Request, res: Response): Promise<Response> => {
+        const users = await this.repository.find({
+            where: [
+                {firstName: Like(`%${req.params.query}%`)},
+                {lastName: Like(`%${req.params.query}%`)}
+            ]
+        });
+
+        return res.json(users);
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {

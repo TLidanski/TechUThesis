@@ -33,6 +33,7 @@ import { UserProfileFriendsComponent } from './components/user-profile-friends/u
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -72,7 +73,8 @@ const routes: Routes = [
     UserProfileFriendsComponent,
     PostFormComponent,
     ChatComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

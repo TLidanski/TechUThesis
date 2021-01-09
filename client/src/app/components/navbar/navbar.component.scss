@@ -11,6 +11,7 @@
 
     &-searchbox {
         display: none;
+        position: relative;
 
         @include tablet {
             display: inline;
@@ -20,6 +21,13 @@
 
         @include desktop {
             width: 20%;
+        }
+
+        .search-results-container {
+            position: absolute;
+            background-color: white;
+            width: 95%;
+            box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.75);
         }
     }
 

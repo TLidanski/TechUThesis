@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
@@ -11,6 +11,8 @@ import { UserService } from '../../services/user.service';
 export class NavbarComponent implements OnInit {
 	currentUser: any;
 	friendRequests;
+	searchResults;
+	@ViewChild('search') search: ElementRef;
 
 	constructor(
 		private authService: AuthService,
@@ -25,6 +27,18 @@ export class NavbarComponent implements OnInit {
 		}
 
 		this.getFriendRequests();
+	}
+
+	onSearch = async (searchQuery: string) => {
+		this.searchResults = await this.userService.searchUsers(searchQuery);
+		if (!searchQuery.length) {
+			this.searchResults = [];
+		}
+	}
+
+	clearSearchInput = () => {
+		this.search.nativeElement.value = '';
+		this.searchResults = [];
 	}
 
 	logout = () => {
