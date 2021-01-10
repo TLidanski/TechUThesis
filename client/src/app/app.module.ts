@@ -34,6 +34,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { PostMediaModalComponent } from './components/post-media-modal/post-media-modal.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -74,7 +75,8 @@ const routes: Routes = [
     PostFormComponent,
     ChatComponent,
     EditProfileComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    PostMediaModalComponent
   ],
   imports: [
     BrowserModule,

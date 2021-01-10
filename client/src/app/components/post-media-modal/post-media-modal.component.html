@@ -1,0 +1,59 @@
+<div [ngClass]="{'post-modal': true, 'show': show}">
+
+    <div class="post-modal-content flex">
+        
+        <div class="post-modal-media">
+            <app-post-media [media]="post.media"></app-post-media>
+        </div>
+
+        <div class="post-modal-info">
+            <div class="close">
+                <button class="btn btn-link">
+                    <img src="{{'baseUrl' | env}}\media\close.svg" alt="Close" (click)="toggleModal()">
+                </button>
+            </div>
+            <div class="user flex">
+                <app-user-avatar [user]="post.user"></app-user-avatar>
+                <div class="post-author">
+                    <a routerLink="/user/{{post.user.username}}/posts"><h3>{{post.user | fullName}}</h3></a>
+                    <span id="post-timestamp">{{post.createdAt | date:'fullDate'}} {{post.createdAt | date:'shortTime'}}</span>
+                </div>
+            </div>
+            <div class="description">
+                <p>{{post.text}}</p>
+            </div>
+
+            <div class="post-modal-reacts flex">
+                <div class="reacts">
+                    <app-reactions-data [reactions]="post.reactions"></app-reactions-data>
+                </div>
+        
+                <div id="comments-length">
+                    <span>
+                        {{post.comments?.length}} {{post.comments?.length === 1 ? 'Comment' : 'Comments'}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="post-actions flex">
+                <button class="btn btn-primary like-btn">
+                    <app-reactions-tooltip [id]="post.id" [context]="'post'" (newReactionEvent)="reactionAdded()"></app-reactions-tooltip>
+                    <img src="{{'baseUrl' | env}}\media\heart.svg" alt="">
+                    Like
+                </button>
+                <button class="btn btn-primary share-btn">
+                    <img src="{{'baseUrl' | env}}\media\share.svg" alt="">
+                    Share
+                </button>
+            </div>
+
+            <div class="comments">
+                <ng-container *ngFor="let comment of post.comments">
+                    <app-comment [comment]="comment"></app-comment>
+                </ng-container>
+            </div>
+
+            <app-comment-form [id]="post.id" [context]="'post'" (newCommentEvent)="commentAdded()"></app-comment-form>
+        </div>
+    </div>
+</div>

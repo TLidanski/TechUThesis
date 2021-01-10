@@ -1,6 +1,6 @@
 <div class="post-media" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
     <ng-container *ngFor="let mediaElement of media; index as i">
-        <img class="media" [@swipeInOut] *ngIf="mediaElement.type === 'image' && i === index" src="{{'baseUrl' | env}}\{{mediaElement.path}}" alt="">
+        <img class="media" (click)="toggleModal()" [@swipeInOut] *ngIf="mediaElement.type === 'image' && i === index" src="{{'baseUrl' | env}}\{{mediaElement.path}}" alt="">
         <video class="media" [@swipeInOut] *ngIf="mediaElement.type === 'video' && i === index" src="{{'baseUrl' | env}}\{{mediaElement.path}}" controls></video>
     </ng-container>
 

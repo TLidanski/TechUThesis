@@ -10,6 +10,7 @@ export class PostComponent implements OnInit {
 	@Input() post: any;
 	isMobile: boolean = window.innerWidth < 600;
 	showCommentsModal = false;
+	showPostMediaModal = false;
 
 	constructor(private postService: PostService) {
 	}
@@ -31,6 +32,10 @@ export class PostComponent implements OnInit {
 
 	toggleCommentsModal = () => {
 		this.showCommentsModal = !this.showCommentsModal;
+	}
+
+	togglePostMediaModal = () => {
+		this.showPostMediaModal = !this.showPostMediaModal;
 	}
 
 	@HostListener('window:resize', ['$event'])

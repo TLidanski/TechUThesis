@@ -9,7 +9,7 @@
 
     <div class="post-text">{{post.text}}</div>
 
-    <app-post-media *ngIf="post.media.length" [media]="post.media"></app-post-media>
+    <app-post-media *ngIf="post.media.length" [media]="post.media" (togglePostMediaModalEvent)="togglePostMediaModal()"></app-post-media>
 
     <div class="post-reacts flex">
         <div class="reacts">
@@ -45,4 +45,6 @@
         <button (click)="toggleCommentsModal()" class="btn btn-link" *ngIf="isMobile">See comments</button>
         <app-comments-modal [show]="showCommentsModal" [post]="post" (toggleModalEvent)="toggleCommentsModal()"></app-comments-modal>
     </div>
+
+    <app-post-media-modal *ngIf="post.media.length && !isMobile" [show]="showPostMediaModal" [post]="post" (togglePostMediaModalEvent)="togglePostMediaModal()" (commentAddedEvent)="commentAdded()" (reactionAddedEvent)="reactionAdded()"></app-post-media-modal>
 </article>

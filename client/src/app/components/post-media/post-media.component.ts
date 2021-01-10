@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, transition, animate, group, query, stagger, keyframes } from '@angular/animations';
 
 @Component({
@@ -20,6 +20,7 @@ import { trigger, state, style, transition, animate, group, query, stagger, keyf
 })
 export class PostMediaComponent implements OnInit {
 	@Input() media: any[];
+	@Output() togglePostMediaModalEvent: EventEmitter<any> = new EventEmitter<any>();
 
 	private index: number = 0;
 	private swipeCoord?: [number, number];
@@ -65,5 +66,9 @@ export class PostMediaComponent implements OnInit {
 				this.swipeActions[swipe]();
 			}
 		}
+	}
+
+	toggleModal = () => {
+		this.togglePostMediaModalEvent.emit();
 	}
 }

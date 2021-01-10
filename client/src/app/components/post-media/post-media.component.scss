@@ -3,6 +3,7 @@
 .post-media {
     position: relative;
     height: 450px;
+    cursor: pointer;
 
     @include desktop {
         height: 500px;

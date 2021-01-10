@@ -4,6 +4,7 @@
     display: none;
 
     @include tablet {
+        padding: 15px;
         display: inline;
         width: 30%;
         position: fixed;
@@ -13,7 +14,6 @@
     }
 
     @include desktop {
-        padding: 15px;
         width: 25%;
     }
 
