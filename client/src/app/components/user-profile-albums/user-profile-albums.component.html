@@ -1,4 +1,4 @@
-<div class="album-create">
+<div *ngIf="currentUser.id === user.id" class="album-create">
     <form class="album-form" [formGroup]="albumForm" (ngSubmit)="create()" enctype="multipart/form-data">
         <input id="album-name" type="text" formControlName="name" placeholder="Album Name" name="text">
 

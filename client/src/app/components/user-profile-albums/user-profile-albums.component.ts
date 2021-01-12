@@ -15,6 +15,7 @@ export class UserProfileAlbumsComponent implements OnInit {
 	media: any[];
 	albums: any[];
 	previewImages: string[];
+	user: any;
 	currentUser: any;
 	albumForm: FormGroup = new FormGroup({
 		name: new FormControl('', Validators.required),
@@ -37,8 +38,8 @@ export class UserProfileAlbumsComponent implements OnInit {
 	}
 
 	getAlbums = async () => {
-		const user: any = await this.userService.getUserByUsername(this.route.parent.snapshot.params.username);
-		this.http.get(`${environment.baseUrl}/albums/user/${this.currentUser.id}`, {withCredentials: true}).subscribe((albums: any) => {
+		this.user = await this.userService.getUserByUsername(this.route.parent.snapshot.params.username);
+		this.http.get(`${environment.baseUrl}/albums/user/${this.user.id}`, {withCredentials: true}).subscribe((albums: any) => {
 			this.albums = albums;
 		});
 	}
