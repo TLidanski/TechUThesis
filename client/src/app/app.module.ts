@@ -35,6 +35,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { PostMediaModalComponent } from './components/post-media-modal/post-media-modal.component';
+import { MediaModalComponent } from './components/media-modal/media-modal.component';
+import { AlbumComponent } from './components/album/album.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -76,7 +78,9 @@ const routes: Routes = [
     ChatComponent,
     EditProfileComponent,
     SearchResultComponent,
-    PostMediaModalComponent
+    PostMediaModalComponent,
+    MediaModalComponent,
+    AlbumComponent
   ],
   imports: [
     BrowserModule,

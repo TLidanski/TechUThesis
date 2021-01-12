@@ -8,10 +8,6 @@ import { environment } from 'src/environments/environment';
 export class PostService {
 
 	constructor(private http: HttpClient) { }
-	  
-	// getPost = () => {
-	// 	return this.http.get(`${environment.baseUrl}/posts/10`);
-	// }
 
 	getPosts = (paramsObj: any) => {
 		return this.http.get(`${environment.baseUrl}/posts/all/${paramsObj.userId}/${paramsObj.skip}/${paramsObj.take}`, {withCredentials: true});

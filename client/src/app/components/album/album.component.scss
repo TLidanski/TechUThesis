@@ -1,0 +1,30 @@
+.album-container {
+    width: 300px;
+    position: relative;
+
+    .album-data {
+        position: absolute;
+        display: none;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &:hover {
+        .image-container {
+            opacity: 0.7;
+        }
+
+        .album-data {
+            padding: 5px;
+            display: inline;
+        }
+    }
+
+    img {
+        width: 300px;
+        object-fit: contain;
+    }
+}

@@ -1,1 +1,15 @@
-<p>user-profile-albums works!</p>
+<div class="album-create">
+    <form class="album-form" [formGroup]="albumForm" (ngSubmit)="create()" enctype="multipart/form-data">
+        <input id="album-name" type="text" formControlName="name" placeholder="Album Name" name="text">
+
+        <app-file-input [element]="'media'" [text]="'Upload pics or videos'" [images]="previewImages"></app-file-input>
+        <input type="file" formControlName="media" name="media" id="media" (change)="onMediaSelect($event)" multiple>
+
+        <button id="create-album-btn" type="submit" class="btn btn-primary" *ngIf="albumForm.valid">Create</button>
+    </form>
+</div>
+<div class="flex">
+    <ng-container *ngFor="let album of albums">
+        <app-album [album]="album"></app-album>
+    </ng-container>
+</div>

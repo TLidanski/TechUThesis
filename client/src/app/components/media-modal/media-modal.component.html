@@ -1,0 +1,11 @@
+<div [ngClass]="{'media-modal': true, 'show': show}">
+    <div class="media-modal-content">
+        <div class="header">
+            <button class="btn btn-link">
+                <img src="{{'baseUrl' | env}}\media\close.svg" alt="Close" (click)="toggleMediaModal()">
+            </button>
+        </div>
+    
+        <app-post-media [media]="media"></app-post-media>
+    </div>
+</div>

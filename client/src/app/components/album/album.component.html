@@ -1,0 +1,11 @@
+<div class="album-container">
+    <div class="image-container">
+        <img src="{{'baseUrl' | env}}\{{album.media[album.media.length-1].path}}" alt="">
+    </div>
+    <div class="album-data" (click)="toggleMediaModal()">
+        <h3>{{album.name}}</h3>
+        <p><b>{{album.media.length}} photo{{album.media.length > 1 ? 's' : ''}}</b></p>
+    </div>
+
+    <app-media-modal [media]="album.media" [show]="showMediaModal" (toggleMediaModalEvent)="toggleMediaModal()"></app-media-modal>
+</div>
