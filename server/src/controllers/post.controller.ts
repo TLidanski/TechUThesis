@@ -25,6 +25,7 @@ export class PostController implements IControllerBase {
         this.router.get(this.path + '/:id', this.AuthService.isAuthenticated, this.getById);
         this.router.get(this.path + '/user/:id', this.AuthService.isAuthenticated, this.getUserPosts);
         this.router.post(this.path, this.AuthService.isAuthenticated, this.MediaService.upload.array('media', this.maxMediaNumber), this.create);
+        this.router.delete(this.path + '/:id', this.AuthService.isAuthenticated, this.delete);
     }
 
     private get = async (req: Request, res: Response): Promise<Response> => {
@@ -77,6 +78,11 @@ export class PostController implements IControllerBase {
         const newPost = this.repository.create(postData);
         const result = await this.repository.save(newPost);
 
+        return res.json(result);
+    }
+
+    private delete = async (req: Request, res: Response): Promise<Response> => {
+        const result = await this.repository.delete(req.params.id);
         return res.json(result);
     }
 }

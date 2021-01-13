@@ -22,6 +22,35 @@
 
         .post-author {
             margin: 0 10px;
+            flex: 2;
+        }
+
+        .post-menu {
+            position: relative;
+
+            .menu-tooltip {
+                position: absolute;
+                visibility: visible;
+                width: 120px;
+                background-color: white;
+                color: black;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 5px;
+                border: 1px solid black;
+
+                z-index: 3;
+                left: -100px;
+                top: 25px;
+            }
+
+            img {
+                width: 15px;
+            }
+
+            a {
+                cursor: pointer;
+            }
         }
 
         #post-timestamp {

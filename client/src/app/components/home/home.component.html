@@ -1,7 +1,7 @@
 <section>
     <div class="posts">
         <app-post-form (newPostEvent)="appendPost()"></app-post-form>
-        <app-post *ngFor="let post of posts" [post]="post"></app-post>
+        <app-post *ngFor="let post of posts" [post]="post" (deleteEvent)="appendPost()"></app-post>
         <div id="anchor"></div>
     </div>
     <app-sidebar></app-sidebar>

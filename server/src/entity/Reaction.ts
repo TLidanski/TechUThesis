@@ -29,7 +29,7 @@ export class Reaction {
     @Column({ nullable: true })
     postId: number;
 
-    @ManyToOne(type => Post, post => post.reactions, {nullable: true})
+    @ManyToOne(type => Post, post => post.reactions, {nullable: true, onDelete: 'CASCADE'})
     post: Post;
 
     @Column({ nullable: true })

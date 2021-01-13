@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@angular/core';
 import { PostService } from '../../services/post.service';
 
 @Component({
@@ -8,7 +8,9 @@ import { PostService } from '../../services/post.service';
 })
 export class PostComponent implements OnInit {
 	@Input() post: any;
+	@Output() deleteEvent: EventEmitter<any> = new EventEmitter<any>();
 	isMobile: boolean = window.innerWidth < 600;
+	showMenu = false;
 	showCommentsModal = false;
 	showPostMediaModal = false;
 
@@ -36,6 +38,15 @@ export class PostComponent implements OnInit {
 
 	togglePostMediaModal = () => {
 		this.showPostMediaModal = !this.showPostMediaModal;
+	}
+
+	toggleMenu = () => {
+		this.showMenu = !this.showMenu;
+	}
+
+	delete = async () => {
+		await this.postService.delete(this.post.id);
+		this.deleteEvent.emit();
 	}
 
 	@HostListener('window:resize', ['$event'])

@@ -25,7 +25,7 @@ export class Media {
     @Column({nullable: true})
     description: string;
 
-    @ManyToOne(type => Post, post => post.media, {nullable: true})
+    @ManyToOne(type => Post, post => post.media, {nullable: true, onDelete: 'CASCADE'})
     post: Post;
 
     @ManyToMany(type => Album, album => album.media)

@@ -20,7 +20,7 @@ export class Comment {
     @Column({ nullable: true })
     postId: number;
 
-    @ManyToOne(type => Post, post => post.comments)
+    @ManyToOne(type => Post, post => post.comments, {onDelete: 'CASCADE'})
     post: Post;
 
     @Column({ nullable: true })

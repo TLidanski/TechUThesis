@@ -5,6 +5,12 @@
             <a routerLink="/user/{{post.user.username}}/posts"><h3>{{post.user | fullName}}</h3></a>
             <span id="post-timestamp">{{post.createdAt | date:'fullDate'}} {{post.createdAt | date:'shortTime'}}</span>
         </div>
+        <div class="post-menu">
+            <button class="btn btn-link"><img src="{{'baseUrl' | env}}\media\menu.svg" alt="Menu" (click)="toggleMenu()"></button>
+            <div *ngIf="showMenu" class="menu-tooltip">
+                <a (click)="delete()">Delete</a>
+            </div>
+        </div>
     </header>
 
     <div class="post-text">{{post.text}}</div>

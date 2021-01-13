@@ -31,4 +31,11 @@ export class PostService {
 			this.http.post(`${environment.baseUrl}/posts`, params, {withCredentials: true}).subscribe(res => resolve(res));
 		});
 	}
+
+	delete = (postId: string) => {
+		return new Promise(resolve => {
+
+			this.http.delete(`${environment.baseUrl}/posts/${postId}`,{withCredentials: true}).subscribe(res => resolve(res));
+		});
+	}
 }
