@@ -20,9 +20,19 @@ export class ReactionController implements IControllerBase {
     }
 
     private create = async (req: Request, res: Response): Promise<Response> => {
-        const reaction = this.repository.create(req.body);
+        let result;
+        let reaction = await this.repository.findOne({
+            where: {user: req.body.user, postId: req.body.postId}
+        });
 
-        const result = await this.repository.save(reaction);   
+        if (reaction) {
+            this.repository.merge(reaction, req.body);
+            result = await this.repository.save(reaction);
+        } else {
+            const reaction = this.repository.create(req.body);
+            result = await this.repository.save(reaction);
+        }
+   
         return res.json(result);
     }
 
