@@ -14,9 +14,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 	@Input() user;
 	@Input() show;
 	@Output() toggleModalEvent = new EventEmitter<any>();
+	@Output() unreadMessageEvent = new EventEmitter<number>();
 	@ViewChild('scroll') private scroll: ElementRef;
 	public currentUser;
 	public messages: any[];
+	private unreadMsgCount: number = 0;
 	public chatForm: FormGroup = new FormGroup({
 		chat: new FormControl('', Validators.required)
 	});
@@ -52,13 +54,19 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 		this.socket.on('server-message', (msgObj: any) => {
 			this.messages.push(msgObj);
 			this.scrollToBottom();
+
+			if (!this.show) {
+				this.unreadMsgCount++;
+				this.unreadMessageEvent.emit(this.unreadMsgCount);
+			}
 		});
 	}
 
 	onSubmit = () => {
 		const msgObj = {
 			msg: this.chatForm.value.chat,
-			user: this.currentUser
+			user: this.user,
+			currentUser: this.currentUser
 		};
 		this.socket.emit('message', msgObj);
 
@@ -73,6 +81,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 	scrollToBottom = () => {
 		try {
             this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-        } catch(err) { }
+        } catch(err) {}
 	}
 }

@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class FriendListItemComponent implements OnInit {
   @Input() user;
   show: boolean = false;
+  unreadMessageCount: number = 0;
 
   constructor() { }
 
@@ -15,7 +16,13 @@ export class FriendListItemComponent implements OnInit {
   }
 
   toggle = () => {
-  	this.show = !this.show;
+    this.show = !this.show;
+    if (this.show) {
+      this.unreadMessageCount = 0;
+    }
 	}
 
+  setUnreadMessages = (unreadMsgCount) => {
+    this.unreadMessageCount = unreadMsgCount;
+  }
 }

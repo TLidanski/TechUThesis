@@ -6,7 +6,6 @@ import { ChatMessage } from '../entity/ChatMessage';
 
 export class ChatService {
     private io;
-    private room: any;
     private roomRepository = getRepository(ChatRoom);
     private messageRepository = getRepository(ChatMessage);
 
@@ -17,37 +16,45 @@ export class ChatService {
 
     private initConnection = () => {
         this.io.on('connection', (socket: any) => {
-            console.log(`Connection established - ${socket.id}`);
 
             socket.on('join-room', async (data: any) => {
-                this.room = await this.roomRepository.findOne({
+                let room = await this.roomRepository.findOne({
                     where: [
                         {name: `${data.currentUser.id}-${data.user.id}`},
                         {name: `${data.user.id}-${data.currentUser.id}`}
                     ]
                 });
 
-                if (!this.room) {
+                if (!room) {
                     let newRoom = new ChatRoom();
                     newRoom.name = `${data.currentUser.id}-${data.user.id}`;
                     newRoom.users = [data.currentUser, data.user];
 
-                    this.room = await this.roomRepository.save(newRoom);
+                    room = await this.roomRepository.save(newRoom);
                     
-                    socket.join(this.room.id);
+                    socket.join(room.id);
                 } else {
-                    socket.join(this.room.id);
+                    socket.join(room.id);
                 }
             });
 
             socket.on('message', async (msgObj: any) => {
-                let message = new ChatMessage();
-                message.message = msgObj.msg;
-                message.author = msgObj.user;
-                message.room = this.room;
+                const room = await this.roomRepository.findOne({
+                    where: [
+                        {name: `${msgObj.currentUser.id}-${msgObj.user.id}`},
+                        {name: `${msgObj.user.id}-${msgObj.currentUser.id}`}
+                    ]
+                });
 
-                const newMsg = await this.messageRepository.save(message);
-                this.io.to(this.room.id).emit('server-message', newMsg);
+                if (room) {
+                    let message = new ChatMessage();
+                    message.message = msgObj.msg;
+                    message.author = msgObj.currentUser;
+                    message.room = room;
+
+                    const newMsg = await this.messageRepository.save(message);
+                    this.io.to(room.id).emit('server-message', newMsg);
+                }
             });
 
             socket.on('disconnect', () => {

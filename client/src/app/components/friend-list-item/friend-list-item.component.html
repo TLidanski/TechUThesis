@@ -1,9 +1,9 @@
 <div class="friend-data flex" (click)="toggle()">
     <app-user-avatar [user]="user"></app-user-avatar>
     <a id="friend-name" routerLink="/user/{{user.username}}/posts">{{user | fullName}}</a>
-    <div *ngIf="false" class="unread-msg-count">
-        <span></span>
+    <div *ngIf="unreadMessageCount" class="unread-msg-count">
+        <span>{{unreadMessageCount}}</span>
     </div>
     <button class="btn btn-link"><img src="{{'baseUrl' | env}}\media\message.svg" alt="Chat"></button>
 </div>
-<app-chat [user]="user" [show]="show" (toggleModalEvent)="toggle()"></app-chat>
+<app-chat [user]="user" [show]="show" (toggleModalEvent)="toggle()" (unreadMessageEvent)="setUnreadMessages($event)"></app-chat>
