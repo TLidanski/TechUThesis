@@ -1,9 +1,9 @@
 <nav *ngIf="router.url != '/login'" class="navbar">
     <div class="navbar-content">
-        <div class="navbar-header">
+        <div *ngIf="!showSearch" class="navbar-header">
             <a routerLink="/" class="navbar-brand">The Network</a>
         </div>
-        <div class="navbar-searchbox">
+        <div [ngClass]="{'navbar-searchbox': true, 'active': showSearch}">
             <input #search (keyup)="onSearch(search.value)" type="text" placeholder="Search" name="search" id="search">
             <div *ngIf="searchResults" class="search-results-container">
                 <ng-container *ngFor="let result of searchResults">
@@ -12,11 +12,16 @@
             </div>
         </div>
         <div class="navbar-links">
-            <!-- <div id="navbar-home">
-                <a routerLink="/" routerLinkActive="active" class="navbar-link">
-                    <img src="{{'baseUrl' | env}}\media\home.svg" alt="">
+            <div id="navbar-find">
+                <a (click)="showMobileSearch()" class="navbar-link">
+                    <img src="{{'baseUrl' | env}}\media\find.svg" alt="">
                 </a>
-            </div> -->
+            </div>
+            <div id="navbar-chat">
+                <a routerLink="/messenger" routerLinkActive="active" class="navbar-link">
+                    <img src="{{'baseUrl' | env}}\media\send.svg" alt="">
+                </a>
+            </div>
             <div id="navbar-user-profile">
                 <div class="user-profile-container">
                     <app-user-avatar [user]="currentUser"></app-user-avatar>

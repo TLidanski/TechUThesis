@@ -1,8 +1,14 @@
 @import '../../scss/mixins.scss';
 
-.sidebar {
+:host-context(section) .sidebar {
     display: none;
 
+    @include tablet {
+        display: inline;
+    }
+}
+
+.sidebar {
     @include tablet {
         padding: 15px;
         display: inline;

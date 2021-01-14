@@ -47,7 +47,8 @@ const routes: Routes = [
     {path: 'albums', component: UserProfileAlbumsComponent},
     {path: 'friends', component: UserProfileFriendsComponent}
   ]},
-  {path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]}
+  {path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]},
+  {path: 'messenger', component: SidebarComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

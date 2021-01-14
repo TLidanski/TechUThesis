@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
 	currentUser: any;
 	friendRequests;
 	searchResults;
+	showSearch = false;
 	@ViewChild('search') search: ElementRef;
 
 	constructor(
@@ -57,5 +58,9 @@ export class NavbarComponent implements OnInit {
 	declineFriendRequest = async (request) => {
 		await this.userService.deleteFriendRequest(request.id);
 		this.getFriendRequests();
+	}
+
+	showMobileSearch = () => {
+		this.showSearch = !this.showSearch;
 	}
 }

@@ -2,7 +2,7 @@
 
 .navbar {
     &-brand {
-        font-size: 2em;
+        font-size: 2.5em;
         font-family: 'Dancing Script', cursive !important;
     
         color: black;
@@ -12,11 +12,13 @@
     &-searchbox {
         display: none;
         position: relative;
+        padding: 5px;
+        flex: 2;
 
         @include tablet {
             display: inline;
-            padding-top: 5px;
             width: 30%;
+            flex: unset;
         }
 
         @include desktop {
@@ -26,9 +28,22 @@
         .search-results-container {
             position: absolute;
             background-color: white;
-            width: 95%;
+            width: 90%;
             box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.75);
+            z-index: 3;
+
+            @include tablet {
+                width: 91%;
+            }
+
+            @include desktop {
+                width: 92%;
+            }
         }
+    }
+
+    &-searchbox.active {
+        display: inline;
     }
 
     &-content {
@@ -45,6 +60,14 @@
 
             &:hover .profile-tooltip {
                 visibility: visible;
+            }
+        }
+
+        #navbar-find, #navbar-chat {
+            display: inline;
+
+            @include tablet {
+                display: none;
             }
         }
 
@@ -107,13 +130,13 @@
     }
 
     &-link {
-        padding: 0 10px;
+        padding: 10px 10px;
         display: flex;
         justify-content: center;
         align-items: center;
 
         img {
-            width: 45px;
+            width: 30px;
         }
 
         &.active {
