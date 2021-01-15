@@ -3,6 +3,7 @@ import { getRepository, In } from 'typeorm';
 
 import { Post } from '../entity/Post';
 import { User } from '../entity/User';
+import { Media } from '../entity/Media';
 import { MediaService } from '../services/media.service';
 import { AuthService } from '../services/auth.service';
 import IControllerBase from '../interfaces/IControllerBase.interface';
@@ -88,13 +89,26 @@ export class PostController implements IControllerBase {
     }
 
     private share = async (req: Request, res: Response): Promise<Response> => {
+        let duplicateMedia = [];
         const post = req.body.post;
-        let newPost = new Post();
-        newPost.user = req.body.user;
-        newPost.text = post.text;
-        newPost.media = post.media;
+        const mediaRepo = getRepository(Media);
         
-        const result = await this.repository.save(newPost);
+        for (const media of post.media) {
+            const sharedMedia = mediaRepo.create({
+                type: media.type,
+                path: media.path
+            });
+
+            duplicateMedia.push(await mediaRepo.save(sharedMedia));
+        }
+
+        const sharedPost = this.repository.create({
+            user: req.body.user,
+            text: post.text,
+            media: duplicateMedia
+        });
+        
+        const result = await this.repository.save(sharedPost);
         return res.json(result);
     }
 }
