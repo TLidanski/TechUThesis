@@ -35,7 +35,7 @@
             <img src="{{'baseUrl' | env}}\media\heart.svg" alt="">
             Like
         </button>
-        <button class="btn btn-primary share-btn">
+        <button class="btn btn-primary share-btn" (click)="share()">
             <img src="{{'baseUrl' | env}}\media\share.svg" alt="">
             Share
         </button>
@@ -52,5 +52,5 @@
         <app-comments-modal [show]="showCommentsModal" [post]="post" (toggleModalEvent)="toggleCommentsModal()"></app-comments-modal>
     </div>
 
-    <app-post-media-modal *ngIf="post.media.length && !isMobile" [show]="showPostMediaModal" [post]="post" (togglePostMediaModalEvent)="togglePostMediaModal()" (commentAddedEvent)="commentAdded()" (reactionAddedEvent)="reactionAdded()"></app-post-media-modal>
+    <app-post-media-modal *ngIf="post.media.length && !isMobile" [show]="showPostMediaModal" [post]="post" (togglePostMediaModalEvent)="togglePostMediaModal()" (commentAddedEvent)="commentAdded()" (reactionAddedEvent)="reactionAdded()" (shareEvent)="share()"></app-post-media-modal>
 </article>

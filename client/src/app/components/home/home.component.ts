@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this.observer.disconnect();
 	}
 
-	appendPost = () => {
+	refreshPosts = () => {
 		this.posts = [];
 		this.queryOptions.skip = 0;
 	}

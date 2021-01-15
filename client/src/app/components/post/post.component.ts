@@ -8,7 +8,8 @@ import { PostService } from '../../services/post.service';
 })
 export class PostComponent implements OnInit {
 	@Input() post: any;
-	@Output() deleteEvent: EventEmitter<any> = new EventEmitter<any>();
+	@Output() refreshEvent: EventEmitter<any> = new EventEmitter<any>();
+	currentUser: any;
 	isMobile: boolean = window.innerWidth < 600;
 	showMenu = false;
 	showCommentsModal = false;
@@ -18,6 +19,10 @@ export class PostComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		const currentUserStorage = localStorage.getItem('currentUser');
+		if (currentUserStorage) {
+			this.currentUser = JSON.parse(currentUserStorage);
+		}
 	}
 
 	commentAdded = () => {
@@ -46,7 +51,12 @@ export class PostComponent implements OnInit {
 
 	delete = async () => {
 		await this.postService.delete(this.post.id);
-		this.deleteEvent.emit();
+		this.refreshEvent.emit();
+	}
+
+	share = async () => {
+		await this.postService.share({post: this.post, user: this.currentUser});
+		this.refreshEvent.emit();
 	}
 
 	@HostListener('window:resize', ['$event'])

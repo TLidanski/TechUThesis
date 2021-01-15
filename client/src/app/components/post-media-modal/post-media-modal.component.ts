@@ -11,6 +11,7 @@ export class PostMediaModalComponent implements OnInit {
 	@Output() togglePostMediaModalEvent: EventEmitter<any> = new EventEmitter<any>();
 	@Output() commentAddedEvent: EventEmitter<any> = new EventEmitter<any>();
 	@Output() reactionAddedEvent: EventEmitter<any> = new EventEmitter<any>();
+	@Output() shareEvent: EventEmitter<any> = new EventEmitter<any>();
 
 	constructor() { }
 
@@ -27,5 +28,9 @@ export class PostMediaModalComponent implements OnInit {
 
 	reactionAdded = () => {
 		this.reactionAddedEvent.emit();
+	}
+
+	share = () => {
+		this.shareEvent.emit();
 	}
 }
