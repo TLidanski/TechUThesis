@@ -10,7 +10,7 @@
 
 .sidebar {
     @include tablet {
-        padding: 15px;
+        padding: 30px 15px;
         display: inline;
         width: 30%;
         position: fixed;

@@ -1,6 +1,16 @@
 @import '../../scss/mixins.scss';
 
 .navbar {
+    width: 100%;
+    top: 0;
+    background: white;
+    padding-top: 5px;
+    z-index: 5;
+
+    @include tablet {
+        position: fixed;
+    }
+
     &-brand {
         font-size: 2.5em;
         font-family: 'Dancing Script', cursive !important;
