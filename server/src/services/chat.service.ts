@@ -57,9 +57,7 @@ export class ChatService {
                 }
             });
 
-            socket.on('disconnect', () => {
-                console.log('Disconnected')
-            });
+            socket.on('disconnect', () => {});
         });
     }
 }
