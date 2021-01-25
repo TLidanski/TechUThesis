@@ -44,7 +44,8 @@ export class User {
 
     @Column({
         type: 'enum',
-        enum: Gender
+        enum: Gender,
+        nullable: true
     })
     gender: Gender;
 
