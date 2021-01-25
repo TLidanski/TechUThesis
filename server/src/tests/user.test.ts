@@ -53,7 +53,7 @@ describe('User Test Suite', () => {
         }
     });
 
-    test('Should not create user with existing username', async () => {
+    test('Should not create user with existing email', async () => {
         const repository = getConnection().getRepository(User);
 
         try {
