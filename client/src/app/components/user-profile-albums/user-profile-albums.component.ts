@@ -65,13 +65,16 @@ export class UserProfileAlbumsComponent implements OnInit {
 
 	prepareImagesForPreview = (files) => {
 		for (const file of files) {
+			const fileType = file.type.split('/')[0];
 			const reader = new FileReader();
 
 			reader.onload = (e: any) => {
 				this.previewImages.push(e.target.result);
 			}
 
-			reader.readAsDataURL(file);		
+			if (fileType !== 'video') {
+				reader.readAsDataURL(file);
+			}		
 		}
 	}
 
